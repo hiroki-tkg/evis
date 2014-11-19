@@ -1,5 +1,7 @@
 <?php
 
+// App::import('Vendor','facebook/facebook'); 
+
 class UsersController extends AppController{
 
 	public $name = 'User';
@@ -8,6 +10,12 @@ class UsersController extends AppController{
 
 	public function beforeFilter(){
 		$this->Auth->allow(array('signup', 'confirm'));
+		// $this->Facebook = new Facebook(array(
+  //           'appId' => '1492040851061804',
+  //           'secret' => 'e999384ca4b475d5b5c4b2a7315e92be',
+  //           'cookie' => true,
+  //       ));
+
 	}
 
 	public function index(){
@@ -20,8 +28,14 @@ class UsersController extends AppController{
 			if ($this->Auth->login()){
 				return $this->redirect(array('controller' => 'posts', 'action' => 'index'));
 			} else {
-		        $this->Session->setFlash('Emailとパスワードの組み合わせが正しくありません', 'default', array('class'=> 'alert alert-danger'));
-			}
+		        // Userのis_validを取得
+		        $user_state = $this->User->field( 'is_valid', array( 'email' => $this->data['User']['email']));
+		        if ($user_state == 0){
+		            $this->Session->setFlash( '現在、管理者の承認待ちです。もう少し待ってね');
+		        } else {
+		            $this->Session->setFlash( 'ユーザ名もしくはパスワードが違います');
+		        }
+		    }
 		}
 	}
 
@@ -39,6 +53,12 @@ class UsersController extends AppController{
 
 	public function confirm(){
 
+	}
+
+
+	public function page(){
+		$user = $this->Auth->user();
+		$this->set('user', $user);
 	}
 
 	public function thanks(){

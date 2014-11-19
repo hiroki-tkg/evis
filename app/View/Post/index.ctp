@@ -1,3 +1,5 @@
+<a href=""><?php echo $user['username']; ?></a>
+
 <h2>Eveetする！</h2>
 <?php
     echo $this->Form->create('Posts', array('action' => 'add_post'));

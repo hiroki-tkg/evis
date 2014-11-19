@@ -27,5 +27,8 @@
 	},
 	"bin": [
 		"lib/Cake/Console/cake"
-	]
+	],
+	"require": {
+    	"facebook/php-sdk-v4" : "4.0.*"
+	}
 }

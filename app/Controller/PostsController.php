@@ -20,6 +20,9 @@ class PostsController extends AppController{
 
 		$data = $this->paginate('Post');
 		$this->set('Posts', $this->paginate('Post'));
+
+		$user = $this->Auth->user();
+		$this->set('user', $user);
 	}
 
 	public function add_post(){
