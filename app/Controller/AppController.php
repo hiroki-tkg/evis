@@ -31,4 +31,24 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+	    public $components = array(
+
+        'Auth' => array(
+
+            'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'index'),
+            'loginError' => "This message shows up when the wrong credentials are used",
+            'authError' => false,
+            'authenticate' => array(
+            	'Form' => array(
+                	'userModel' => 'User',
+                    'fields' => array('username' => 'email','password' => 'password'),
+                    'scope' => array('User.is_valid' => 1)
+                )
+            )
+        ),
+        'Session',
+    );
+
 }

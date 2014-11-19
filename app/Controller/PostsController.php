@@ -5,9 +5,9 @@ class PostsController extends AppController{
 	public $name = 'Post';
 	public $uses = array('Post');
 	public $layout = 'post';	
+	public $components = array('Session');
 
 	public function beforeFilter(){
-		// $this->Auth->allow(array(''));
 	}
 
 	public function index(){
@@ -15,7 +15,7 @@ class PostsController extends AppController{
 		$this->paginate = array(
 			'conditions' => array('Post.delete_flag' => 0),
 			'order' => array('Post.created' => 'DESC'),
-			'limit'=>30
+			'limit' => 30
 		);
 
 		$data = $this->paginate('Post');
