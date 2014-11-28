@@ -10,5 +10,14 @@ class User extends AppModel {
 		return true;
 	}
 
+	public $hasMany = array(
+		"Post" => array(
+			'className' => 'Post',
+			'conditions' => '',
+			'order' => '',
+			'dependent' => false,
+		)
+	);
+
 }
 

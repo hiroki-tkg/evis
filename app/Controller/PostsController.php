@@ -3,7 +3,7 @@
 class PostsController extends AppController{
 
 	public $name = 'Post';
-	public $uses = array('Post');
+	public $uses = array('Post', 'User');
 	public $layout = 'post';	
 	public $components = array('Session');
 

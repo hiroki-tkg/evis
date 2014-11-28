@@ -5,8 +5,16 @@
 class UsersController extends AppController{
 
 	public $name = 'User';
-	public $uses = array('User');
+	public $uses = array('User', 'Post');
 	public $layout = 'user';	
+
+	// public $paginate = array(
+ //            'User' => array(
+ //                'limit' => 10,
+ //                'order' => array('id' => 'asc'),
+ //            )
+ //        );
+
 
 	public function beforeFilter(){
 		$this->Auth->allow(array('signup', 'confirm'));
@@ -56,9 +64,28 @@ class UsersController extends AppController{
 	}
 
 
-	public function page(){
+	public function page($user_id = null){
+
 		$user = $this->Auth->user();
 		$this->set('user', $user);
+
+		if(!empty($user_id)){
+
+			$this->paginate = array(
+				'conditions' => array(
+					'User.id' => $user_id,
+					'Post.delete_flag' => 0
+				),
+				'order' => array('User.created' => 'DESC'),
+				'limit' => 30
+			);
+
+			$this->set('posts', $this->paginate('Post'));
+
+		}else{
+			throw new NotFoundException();				
+		}
+
 	}
 
 	public function thanks(){
