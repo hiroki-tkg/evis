@@ -6,22 +6,29 @@
         <?php 
         echo $this->Html->image('test_profile.jpg', array('alt' => '', 'border' => '0', 'class' => ""));
         ?>
+        <div class='preview clearfix'>
+			<img src="" id="preview" style="display:none;">
+		</div>
         <div class="profile_img_edit">
-	        <span class="glyphicon glyphicon-camera"></span>
-		    <?php
-		    echo $this->Form->input('profile_img', array('type' => 'file', 'label' => false, 'class' => ''));
-		    echo $this->Form->input('img_dir', array('type' => 'hidden', 'class' => 'form-control'));
-			?>        
+
+	        <div class="file_frame">
+	        <span class="glyphicon glyphicon-camera"></span>ファイルを選択
+		    <?php echo $this->Form->input('profile_img', array('type' => 'file', 'label' => false, 'class' => '')); ?>
+			</div>
+
+		    <?php echo $this->Form->input('img_dir', array('type' => 'hidden', 'class' => 'form-control')); ?>
+			        
 		</div>
         <div class="caption">
             <h3>Hiroki Takagi</h3>
             <div><a href="/users/edit">編集</a></div>
         </div>
     </div>
+
     <div class="profile">
     	<?php
     		echo $this->Form->hidden('id', array('value' => $user['id']));
-    	    echo $this->Form->textarea('profile', array('rows'=> 7,'class' => '', 'placeholder' => 'プロフィール', 'class' => 'form-control', 'onkeyup'=> 'showlength(value)'));
+    	    echo $this->Form->textarea('profile', array('rows'=> 7,'class' => '', 'placeholder' => 'プロフィール', 'class' => 'form-control'));
     	?>
     </div>
 
@@ -114,7 +121,7 @@
 
 <script type="text/javascript">
 $(function(){
-	$('#PostsPhoto').change(
+	$('#UserProfileImg').change(
 	    function() {
 	        if ( !this.files.length ) {
 	            return;

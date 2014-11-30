@@ -11,15 +11,16 @@ class User extends AppModel {
 			return true;
 		}
 	}
-
-	// public $hasMany = array(
-	// 	"Post" => array(
-	// 		'className' => 'Post',
-	// 		'conditions' => '',
-	// 		'order' => '',
-	// 		'dependent' => false,
-	// 	)
-	// );
+	
+	public function afterSave($created, $options = array()){
+	    parent::afterSave($created,$options);
+	 
+	    //updating authentication session
+	    App::uses('CakeSession', 'Model/Datasource');
+	    CakeSession::write('Auth',$this->findById(AuthComponent::user('id')));
+	 
+	    return true;
+	}
 
     public $actsAs = [
         'Upload.Upload' => [

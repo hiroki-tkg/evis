@@ -1,5 +1,4 @@
 <?php
-	pr($user);
     $my_post = count($my_post);
     $my_photos = count($my_photos);
     $photos = $my_post - $my_photos;
@@ -8,11 +7,18 @@
 <div class="col-sm-3 col-md-3">
     <div class="thumbnail">
         <?php 
-        echo $this->Html->image('test_profile.jpg', array('alt' => '', 'border' => '0'));
+        if(empty($user_data['User']['profile_img'])){
+	        echo $this->Html->image('default_icon.png', array('alt' => '', 'border' => '0'));
+    	}else{
         ?>
+        <img src="/files/user/profile_img/<?php echo $user_data['User']['id']; ?>/<?php echo $user_data['User']['profile_img']; ?>">
+        <?php } ?>
+
         <div class="caption">
-            <h3>Hiroki Takagi</h3>
+            <h3><?php echo $user_data['User']['username']; ?></h3>
+            <?php if($user['id'] == $now){ ?>
             <div><a href="/users/edit">編集</a></div>
+            <?php } ?>
         </div>
     </div>
     <ul class="list-group">
@@ -21,8 +27,9 @@
         <li class="list-group-item"><span class="badge badge-primary"><?php echo $photos; ?></span>画像数</li>
         <li class="list-group-item"><span class="badge badge-success"><?php echo count($comment); ?></span>コメント数</li>
     </ul>
-    <div class="profile">
-    	<?php echo $user['profile']; ?>
+    <span class="profile_title">プロフィール</span>
+    <div class="profile thumbnail">
+    	<?php echo $user_data['User']['profile']; ?>
     </div>
 </div>
 
@@ -34,7 +41,7 @@
 			<div class="tweet_header">
 			<?php echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon')); ?>
 
-				<?php echo "<span class='tweet_name'><a href='posts/users/page/" . $post['User']['id'] ."'>" . $post['User']['username'] . "</a></span>"; ?>
+				<?php echo "<span class='tweet_name'><a href='/users/page/" . $post['User']['id'] ."'>" . $post['User']['username'] . "</a></span>"; ?>
 				<?php echo "<span class='tweet_created'>".$post['Post']['created'] . "</span>"; ?>
 			</div>
 			<div class="tweet_bottom">
@@ -69,7 +76,6 @@
 	<div class="comment_area" id="comment_area_<?php echo $post['Post']['id']; ?>">
 	<?php for ($i=0; $i < count($post['Comment']); $i++) { ?>
 		<div class="comment_list">
-		<?php pr($post); ?>
 			<?php echo $post['Comment'][$i]['created']; ?>
 			<?php echo $post['Comment'][$i]['content']; ?>
 		</div>
@@ -104,25 +110,6 @@
 	function showlength(str){
 	    document.getElementById("count").innerHTML = str.length + "文字";
 	}
-</script>
-
-<script type="text/javascript">
-$(function(){
-	$('#PostsPhoto').change(
-	    function() {
-	        if ( !this.files.length ) {
-	            return;
-	        }
-	 
-	        var file = $(this).prop('files')[0];
-	        var fr = new FileReader();
-	        fr.onload = function() {
-	            $('#preview').attr('src', fr.result ).css('display','inline');
-	        }
-	        fr.readAsDataURL(file);
-    	})
-	});
-
 </script>
 
 </div>

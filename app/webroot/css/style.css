@@ -25,7 +25,11 @@ a{
     margin: 20px 15px 0 0;
 }
 #PostsAddPostForm{
-    margin-bottom: 15px;
+    background-color: #EBF4FB;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #e1e8ed;
+    margin-bottom: -1px;
 }
 .tweet{
     background-color: #fff;
@@ -38,9 +42,10 @@ a{
     text-align: left;
 }
 .tweet_name{
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     color: #292f33;
+    padding-left: 12px;
 }
 .tweet_created{
     color: #8899a6;
@@ -50,6 +55,10 @@ a{
 .tweet_content{
     text-align: left;
     padding-top: 10px;
+    font-size: 14px;
+}
+.tweet_bottom{
+    padding-left: 60px;
 }
 .tweet_bottom_meta{
     text-align: left;
@@ -63,6 +72,7 @@ a{
 .tweet_photo img{
     width: 100%;
     margin-bottom: 15px;
+    border-radius: 10px;
 }
 .left_comment{
     float: left;
@@ -108,8 +118,10 @@ a{
     background-color: #EBF4FB;
 }
 .comment_list{
+    background: #f5f8fa;
     border: 1px solid #e1e8ed;
     padding: 20px;
+    margin-bottom: -1px;
 }
 .thumbnail img{
     /*width: 50%;*/
@@ -118,9 +130,81 @@ a{
 }
 .profile_img_edit{
     position: absolute;
-    top: 0;
+    top: 10px;
+    left: 25px;
     color: #000;
 }
 .edit_profile{
     background: rgba(0, 0, 0, 0.5);
 }
+.tweet_icon_box{
+    overflow: hidden;
+    height: 48px;
+    width: 48px;
+    float: left;
+}
+
+/* Topページ */
+#PostsAddPostForm .file_frame{
+    float: left;
+    margin-top: 15px;
+}
+#PostsAddPostForm .file_frame:hover{
+    border: 1px solid;
+    border-color: #89BEE8;
+    border-radius: 5px;
+    margin-bottom: -2px
+}
+
+.file_frame span{
+    margin-right: 5px;
+    color: rgb(59, 148, 217);
+}
+
+@media screen and (max-width: 768px) {
+    .colum-left{
+        display: none;
+    }
+    .logo{
+        margin-left:12px;
+    }
+}
+
+
+
+
+/* mypage */
+.profile{
+    padding: 10px;
+    margin-top: 5px;
+    min-height: 200px;
+}
+.profile_title{
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+/* Edit */
+.file_frame {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  padding: .5em;
+  /*border: 1px solid #999;*/
+  /*background-color: #A0D468;*/
+  color: rgb(59, 148, 217);
+}
+
+.file_frame input[type="file"] {
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  font-size: 100px;
+  cursor: pointer;
+}
+
+

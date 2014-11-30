@@ -5,7 +5,7 @@
 class UsersController extends AppController{
 
 	public $name = 'User';
-	public $uses = array('User', 'Post');
+	public $uses = array('User', 'Post', 'Comment');
 	// public $layout = 'user';	
  	public $helpers = array( 'Js');
 
@@ -71,11 +71,43 @@ class UsersController extends AppController{
 		$user = $this->Auth->user();
 		$this->set('user', $user);
 
+		// 現在のUser_id
+		$now = $this->params['pass'][0];
+		$this->set('now', $now);
+
+
+
+		// 投稿数
+		$my_post = $this->Post->find('all', array(
+			'conditions' => array(
+				'Post.user_id' => $now
+			)
+		));
+
+		// 画像数
+		$my_photos = $this->Post->find('all', array(
+			'conditions' => array(
+				'Post.user_id' => $now,
+				'Post.photo' => NULL
+			)
+		));
+		
+		// コメント数
+		$comment = $this->Comment->find('all', array(
+			'conditions' => array(
+				'Comment.user_id' => $now
+			)
+		));
+
+		$this->set('my_post', $my_post);
+		$this->set('my_photos', $my_photos);
+		$this->set('comment', $comment);
+
 		if(!empty($user_id)){
 
 			$this->paginate = array(
 				'conditions' => array(
-					'User.id' => $user_id,
+					'User.id' => $now,
 					'Post.delete_flag' => 0
 				),
 				'order' => array('Post.created' => 'DESC'),
@@ -83,6 +115,14 @@ class UsersController extends AppController{
 			);
 
 			$this->set('posts', $this->paginate('Post'));
+
+			$user_data = $this->User->find('first', array(
+				'conditions' => array(
+					'User.id' => $now
+				)
+			));
+
+			$this->set('user_data', $user_data);
 
 		}else{
 			throw new NotFoundException();				

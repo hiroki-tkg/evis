@@ -77,6 +77,7 @@ class PostsController extends AppController{
 		);
 
 		$this->Post->save($data);
+		$this->Session->setFlash('あなたのエビートは削除されました');		
 		$this->redirect('/posts');
 		
 	}
