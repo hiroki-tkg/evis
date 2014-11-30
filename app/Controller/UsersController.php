@@ -6,7 +6,8 @@ class UsersController extends AppController{
 
 	public $name = 'User';
 	public $uses = array('User', 'Post');
-	public $layout = 'user';	
+	// public $layout = 'user';	
+ 	public $helpers = array( 'Js');
 
 	// public $paginate = array(
  //            'User' => array(
@@ -65,6 +66,7 @@ class UsersController extends AppController{
 
 
 	public function page($user_id = null){
+		$this->layout = 'index';
 
 		$user = $this->Auth->user();
 		$this->set('user', $user);
@@ -76,8 +78,8 @@ class UsersController extends AppController{
 					'User.id' => $user_id,
 					'Post.delete_flag' => 0
 				),
-				'order' => array('User.created' => 'DESC'),
-				'limit' => 30
+				'order' => array('Post.created' => 'DESC'),
+				'limit' => 20
 			);
 
 			$this->set('posts', $this->paginate('Post'));
@@ -86,6 +88,42 @@ class UsersController extends AppController{
 			throw new NotFoundException();				
 		}
 
+	}
+
+	public function edit(){
+		$this->layout = 'index';
+	 	$user = $this->Auth->user();
+		$id = $user['id'];
+		
+		$this->paginate = array(
+			'conditions' => array(
+				'User.id' => $user['id'],
+				'Post.delete_flag' => 0
+			),
+			'order' => array('Post.created' => 'DESC'),
+			'limit' => 20
+		);
+
+			$this->set('posts', $this->paginate('Post'));
+
+
+	    if( $this->request->is( 'post' ) || $this->request->is( 'put' ) ){
+
+	        if( $this->User->save( $this->request->data ) ){
+
+		        $this->Session->setFlash('プロフィール編集しました', 'default', array('class'=> 'alert alert-success'));         
+	            $this->redirect(array('action' => 'page', $id));
+
+	        }else{
+		        $this->Session->setFlash('なんか知らんけど、編集できなかったよ', 'default', array('class'=> 'alert alert-danger'));
+	        }
+	         
+	    }else{
+	     
+	        $this->request->data = $this->User->read();
+	    }
+
+		$this->set('user', $user);
 	}
 
 	public function thanks(){

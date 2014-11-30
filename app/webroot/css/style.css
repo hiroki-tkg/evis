@@ -1,0 +1,126 @@
+a{
+    cursor: pointer;
+}
+.logo{ 
+    width: 120px;
+    margin-top: 10px;
+}
+.navbar{
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+.submit input{
+    width: 130px;
+    height: 40px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 10px;
+    float: right;
+}
+.index{
+    text-align: left;
+    margin-top: 10px;
+}
+#count{
+    float: right;
+    margin: 20px 15px 0 0;
+}
+#PostsAddPostForm{
+    margin-bottom: 15px;
+}
+.tweet{
+    background-color: #fff;
+    border: 1px solid #e1e8ed;
+    margin-bottom: -1px;
+    padding: 20px;
+    cursor: pointer;
+}
+.tweet_header{
+    text-align: left;
+}
+.tweet_name{
+    font-size: 14px;
+    font-weight: bold;
+    color: #292f33;
+}
+.tweet_created{
+    color: #8899a6;
+    font-size: 13px;
+    float: right;
+}
+.tweet_content{
+    text-align: left;
+    padding-top: 10px;
+}
+.tweet_bottom_meta{
+    text-align: left;
+}
+.tweet_bottom_meta_left{
+    float: left;
+}
+.tweet_bottom_meta_right{
+    float: right;
+}
+.tweet_photo img{
+    width: 100%;
+    margin-bottom: 15px;
+}
+.left_comment{
+    float: left;
+    margin-right: 15px;
+    color: #8899a6;
+}
+.glyphicon{
+    color: #8899a6;
+}
+.left_comment span{
+    margin-right: 3px;
+}
+.count{
+    color: #8899a6;
+}
+.right_others{
+    float: left;
+}
+.files_input{
+    width: 30%;
+    float: left;
+    margin-top: 15px;
+}
+.preview{
+    background-color: #f1f1f1;
+    border-radius: 0 0 3px 3px;
+    box-shadow: inset 0 1px 0 #ccd6dd;
+}
+#preview{
+    width: 75px;
+    float: left;
+}
+.tweet_icon{
+    width: 48px;
+}
+.comment_area textarea{
+    width: 100%;
+}
+.comment_area_inner{
+    padding: 30px;
+    border: 1px solid #e1e8ed;
+    margin-bottom: -1px;
+    background-color: #EBF4FB;
+}
+.comment_list{
+    border: 1px solid #e1e8ed;
+    padding: 20px;
+}
+.thumbnail img{
+    /*width: 50%;*/
+    /*padding: 40px 0;*/
+    /*margin: 0;*/
+}
+.profile_img_edit{
+    position: absolute;
+    top: 0;
+    color: #000;
+}
+.edit_profile{
+    background: rgba(0, 0, 0, 0.5);
+}
