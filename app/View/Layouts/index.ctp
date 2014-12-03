@@ -16,6 +16,7 @@
         echo $this->Html->css('style');
         
         echo $this->Html->script( 'site.min', array( 'inline' => false ) );
+        echo $this->Html->script( 'ajaxButton', array( 'inline' => false ) );
         ?>
 
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
@@ -57,9 +58,8 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a class="nav-link" href="/users/page/<?php echo $user['id']; ?>"><?php echo $user['username']; ?></a></li>
-                            <li><a class="nav-link" href="">設定</a></li>
-                            <li><a class="nav-link" href="">About</a></li>
+                            <li><a class="nav-link" href="">アルバム</a></li>
+                            <li><a class="nav-link user_name" href="/users/page/<?php echo $user['id']; ?>"><?php echo $user['username']; ?></a></li>
                         </ul>
                     </div>
                 </div>

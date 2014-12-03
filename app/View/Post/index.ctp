@@ -14,7 +14,7 @@
         <img src="/files/user/profile_img/<?php echo $user['id']; ?>/<?php echo $user['profile_img']; ?>">
         <?php } ?>
 	<div class="caption">
-            <h3>Hiroki Takagi</h3>
+            <h3><?php echo $user['username']?></h3>
         </div>
     </div>
     <ul class="list-group">
@@ -68,7 +68,7 @@
 					if(!$post['User']['username']){
 						echo "存在しないユーザー";
 					}else{
-						echo "<a href='posts/users/page/" . $post['User']['id'] ."'>" . $post['User']['username'] . "</a>"; 
+						echo "<a href='/users/page/" . $post['User']['id'] ."'>" . $post['User']['username'] . "</a>"; 
 					}
 					?>
 				</span>
@@ -88,7 +88,12 @@
 							<span class="count"><?php echo count($post['Comment']); ?></span>
 						</div>				
 						<div class="right_others clearfix">				
-							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+							<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '1');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+
+							<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '2');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+
+							<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '3');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+
 						</div>
 					</div>
 					<div class="tweet_bottom_meta_right">
@@ -141,7 +146,7 @@
 							<span class="count"><?php echo count($post['Comment']); ?></span> -->
 						</div>				
 						<div class="right_others clearfix">				
-							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+							<!-- <span class="glyphicon glyphicon-star" aria-hidden="true"></span> -->
 						</div>
 					</div>
 					<div class="tweet_bottom_meta_right">
