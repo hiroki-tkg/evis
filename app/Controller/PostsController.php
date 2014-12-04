@@ -63,6 +63,8 @@ class PostsController extends AppController{
 
 		$this->Post->save($data);
 		$this->Session->setFlash('保存されました');
+		$this->Session->setFlash('エビートが保存されました', 'default', array('class'=> 'alert alert-success alert-dismissable'));
+
 		$this->redirect('/posts');
 		
 	}
@@ -91,15 +93,15 @@ class PostsController extends AppController{
 
 			$post_id = $this->data['post_id'];
 			$user_id = $user['id'];
- 			pr($this->data);
- 			exit;
-
+ 			$fav_num = $this->data['fav_num'];
+ 			
  			// Favoriteしていたら、その情報を入れる
 			$fav_on = $this->Favorite->find('all', array(
 				'conditions' => array(
 					'Favorite.user_id' => $user_id,
 					'Favorite.post_id' => $post_id,
-					'Favorite.is_done' => 1)
+					'Favorite.is_done' => 1
+					)
 			));
 
 			// Favを押していなくても、一度でも押した事があれば、それを取得
@@ -110,7 +112,7 @@ class PostsController extends AppController{
 			));
 
 			// Fav押してある 
-			if(!empty($like_on)){
+			if(!empty($fav_on)){
 				$data = array(
 					'id' => $fav_on[0]['Favorite']['id'],
 					'user_id' => $user_id,
@@ -127,6 +129,7 @@ class PostsController extends AppController{
 					'user_id' => $user_id,
 					'post_id' => $post_id,
 					'is_done' => '1',
+					'type' => $fav_num					
 				);
 				echo "おしてない";
 				pr($data);
@@ -138,6 +141,7 @@ class PostsController extends AppController{
 					'user_id' => $user_id,
 					'post_id' => $post_id,
 					'is_done' => '1',	
+					'type' => $fav_num					
 				);
 				$this->Favorite->save($data);
 				echo "はじめて";

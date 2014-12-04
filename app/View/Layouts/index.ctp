@@ -40,6 +40,7 @@
     </head>
     
     <body class="home">
+
         <div class="docs-header header--noBackground">
             <!--nav-->
             <nav class="navbar navbar-default navbar-custom" role="navigation">
@@ -64,14 +65,15 @@
                     </div>
                 </div>
             </nav>
-            
+
+            <?php echo $this->Session->flash(); ?>
+
             <div class="index">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 
-                                    <?php echo $this->Session->flash(); ?>
                                     <?php echo $this->fetch('content'); ?>
 
                                 
@@ -91,3 +93,12 @@
 <script type="text/javascript">
     var delete_message = "削除します。一回消すと戻せないかもよ？"
 </script>
+
+<script>
+    $(function() {
+        setTimeout(function() {
+            $('#flashMessage').fadeOut("slow");
+        }, 1300);
+    });
+</script>
+

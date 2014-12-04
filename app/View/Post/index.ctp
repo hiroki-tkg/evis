@@ -14,14 +14,14 @@
         <img src="/files/user/profile_img/<?php echo $user['id']; ?>/<?php echo $user['profile_img']; ?>">
         <?php } ?>
 	<div class="caption">
-            <h3><?php echo $user['username']?></h3>
+            <h3><a href="/users/page/<?php echo $user['id']; ?>"><?php echo $user['username']?></a></h3>
         </div>
     </div>
     <ul class="list-group">
-        <li class="list-group-item"><span class="badge badge-warning">
-        <?php echo $my_post; ?></span>投稿数</li>
-        <li class="list-group-item"><span class="badge badge-primary"><?php echo $photos; ?></span>画像数</li>
-        <li class="list-group-item"><span class="badge badge-success"><?php echo count($comment); ?></span>コメント数</li>
+        <a href="/users/page/<?php echo $user['id']; ?>"><li class="list-group-item"><span class="badge badge-warning">
+        <?php echo $my_post; ?></span>投稿数</li></a>
+        <a href="/users/page/<?php echo $user['id']; ?>"><li class="list-group-item"><span class="badge badge-primary"><?php echo $photos; ?></span>画像数</li></a>
+        <a href="/users/page/<?php echo $user['id']; ?>"><li class="list-group-item"><span class="badge badge-success"><?php echo count($comment); ?></span>コメント数</li></a>
     </ul>
 </div>
 
@@ -93,6 +93,10 @@
 							<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '2');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
 							<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '3');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+
+							<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '4');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+
+							<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '5');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
 						</div>
 					</div>

@@ -176,6 +176,18 @@ a{
 }
 
 
+#flashMessage{
+    position: absolute;
+    z-index: 100000;
+    width: 50%;
+    opacity: 0.9;
+    top: 0;
+    left: 25%;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    text-align: center;
+}
+
 /* mypage */
 .profile{
     padding: 10px;

@@ -221,7 +221,11 @@
 	
 	Configure::write('Session', array(
 	    'defaults' => 'php',
-	    'timeout'  => 1440,  
+	    'timeout'  => 10080,  // 一週間
+	    'autoRegenerate' => true,
+	    'ini' => array(
+			'session.gc_maxlifetime' => 604800,  // 一週間
+		) 
 	));
 /**
  * A random string used in security hashing methods.
