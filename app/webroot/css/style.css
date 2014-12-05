@@ -222,4 +222,9 @@ a{
   cursor: pointer;
 }
 
+/* Album ページ */
+.album img{
+    width: 10%;
+}
+
 
