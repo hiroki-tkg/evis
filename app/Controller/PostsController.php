@@ -18,10 +18,11 @@ class PostsController extends AppController{
 		$this->Post->recursive = 2;
 		$this->paginate = array(
 			'conditions' => array(
-				'Post.delete_flag' => 0
+				'Post.delete_flag' => 0,
+				// 'Post.is_anonymous' => 0
 			),
 			'order' => array('Post.created' => 'DESC'),
-			'limit' => 30
+			'limit' => 20
 		);
 
 		$data = $this->paginate('Post');
@@ -84,6 +85,51 @@ class PostsController extends AppController{
 		
 	}
 
+	public function anonymous(){
+
+		$this->Post->recursive = 2;
+		$this->paginate = array(
+			'conditions' => array(
+				'Post.delete_flag' => 0,
+				'Post.is_anonymous' => 1
+			),
+			'order' => array('Post.created' => 'DESC'),
+			'limit' => 30
+		);
+
+		$data = $this->paginate('Post');
+		$this->set('Posts', $this->paginate('Post'));
+
+		$user = $this->Auth->user();
+		$this->set('user', $user);
+
+		// 投稿数
+		$my_post = $this->Post->find('all', array(
+			'conditions' => array(
+				'Post.user_id' => $user['id']
+			)
+		));
+
+		// 画像数
+		$my_photos = $this->Post->find('all', array(
+			'conditions' => array(
+				'Post.user_id' => $user['id'],
+				'Post.photo' => NULL
+			)
+		));
+		
+		// コメント数
+		$comment = $this->Comment->find('all', array(
+			'conditions' => array(
+				'Comment.user_id' => $user['id']
+			)
+		));
+
+		$this->set('my_post', $my_post);
+		$this->set('my_photos', $my_photos);
+		$this->set('comment', $comment);
+
+	}
 
 	public function favorite(){
 		$this->autoRender = false;
@@ -153,94 +199,3 @@ class PostsController extends AppController{
 	}
 
 }
-
-
- 	// 	if($this->request->is('ajax')) {
-
-		// 	$postid = $this->data['postid'];
-			
-		// 	// ログインユーザーがこの記事に対して、バケツを押していたらその情報を入れる
-		// 	$wish_on = $this->Wish->find('all', array(
-		// 		'conditions' => array(
-		// 			'Wish.user_id' => $user['id'],
-		// 			'Wish.post_id' => $postid,
-		// 			'Wish.is_done' => 1)
-		// 	));
-
-		// 	$wish_colum = $this->Wish->find('all', array(
-		// 		'conditions' => array(
-		// 			'Wish.user_id' => $user['id'],
-		// 			'Wish.post_id' => $postid)
-		// 	));
-
-		// 	// Wish押してある 
-		// 	if(!empty($wish_on)){
-		// 		$data = array(
-		// 			'id' => $wish_on[0]['Wish']['id'],
-		// 			'user_id' => $user['id'],
-		// 			'post_id' => $postid,
-		// 			'is_done' => '0',
-		// 		);
-		// 		$this->Wish->save($data);
-		// 		// echo "this event is got rid of your wish list";
-		// 		// 増減値を$updateに代入
-		// 		$update = -1;
-
-		// 		// 経験値テーブルから現在の経験値を取得
-		// 		$experience = $this->Experience->find('first', array(
-		// 			'conditions' => array(
-		// 				'Experience.user_id' => $user['id']
-		// 			))
-		// 		);
-
-		// 		if(empty($experience)){
-		// 			$experience_now = 0;
-		// 			// 現状の経験値に、増減分をプラス、保存
-		// 			$point = $experience_now + $update;
-		// 			$experience_score = array(
-		// 				'user_id' => $user['id'],
-		// 				'experience' => $point
-		// 			);		
-
-		// 		}else{
-		// 			$experience_now = $experience['Experience']['experience'];
-		// 			// 現状の経験値に、増減分をプラス、保存
-		// 			$point = $experience_now + $update;
-		// 			$experience_score = array(
-		// 				'id' => $experience['Experience']['id'],
-		// 				'user_id' => $user['id'],
-		// 				'experience' => $point
-		// 			);
-		// 		}
-				
-		// 		$this->Experience->save($experience_score);
-
-		// 	}else{
-
-		// 		// wishを一度も押してない
-		// 		if (empty($wish_colum)){
-		// 			$data =  array(
-		// 				'user_id' => $user['id'],
-		// 				'post_id' => $postid,
-		// 				'is_done' => '1'
-		// 			);					
-		// 			$this->Wish->save($data);
-
-		// 		}else{
-		// 		// wishを一回以上押した事あるが、今は押された状態にない
-		// 			$data = array(
-		// 				'id' => $wish_colum[0]['Wish']['id'],
-		// 				'user_id' => $user['id'],
-		// 				'post_id' => $postid,
-		// 				'is_done' => '1',
-		// 			);
-		// 			$this->Wish->save($data);
-		// 		}
-
-		// 		// echo "this event is in your wish list";
-
-				
-		// 		}				
-		// 	}
-		// }
-

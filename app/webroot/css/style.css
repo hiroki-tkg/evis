@@ -1,3 +1,7 @@
+.home{
+    /*background-color: #6c9fd1;*/
+}
+
 a{
     cursor: pointer;
 }
@@ -20,6 +24,10 @@ a{
     text-align: left;
     margin-top: 10px;
 }
+.is_anonymous_badge{
+    margin-left: 10px;
+}
+
 #count{
     float: right;
     margin: 20px 15px 0 0;
@@ -108,6 +116,11 @@ a{
 .tweet_icon{
     width: 48px;
 }
+
+.comment_area{
+    display: none;
+}
+
 .comment_area textarea{
     width: 100%;
 }
@@ -123,6 +136,7 @@ a{
     padding: 20px;
     margin-bottom: -1px;
 }
+
 .thumbnail img{
     /*width: 50%;*/
     /*padding: 40px 0;*/
@@ -238,4 +252,24 @@ a{
 .footer_row{
     margin-right: 0;
     margin-left: 0;
+}
+
+#infscr-loading{
+    text-align: center;
+    margin: 15px;
+    /*color: #fff;*/
+}
+
+.checkbox_anonymous{
+    position: relative;
+}
+
+.label_anonymous{    
+    position: absolute;
+    top: 20px;
+    left: 110px;
+}
+
+.list-group-item{
+    border-bottom: 1px solid #dddddd;
 }

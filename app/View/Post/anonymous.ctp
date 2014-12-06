@@ -27,40 +27,6 @@
 
 <div class="col-sm-6 col-md-6">
 
-<?php
-    echo $this->Form->create('Posts', array('action' => 'add_post', 'type' => 'file', 'class' => 'clearfix'));
-    echo $this->Form->hidden('user_id', array('value' => $user['id']));
-    echo $this->Form->textarea('content', array('rows'=> 4,'class' => '', 'placeholder' => 'いまどうしてる？', 'class' => 'form-control', 'onkeyup'=> 'showlength(value)'));
-    ?>
-    <div class='preview clearfix'>
-	<img src="" id="preview" style="display:none;">
-	</div>
-    
-    <div class="file_frame">
-		<span class="glyphicon glyphicon-camera"></span>画像を選択
-		<?php echo $this->Form->input('photo', array('type' => 'file', 'label' => false, 'class' => '')); ?>
-	</div>
-
-	<?php echo $this->Form->input('photo_dir', array('type' => 'hidden', 'class' => 'form-control')); ?>
-
-
-    <div class="checkbox_anonymous">
-	    <label for="is_anonymous" class="label_anonymous">
-		    <?php
-		    echo $this->Form->checkbox('is_anonymous', array('type' => 'checkbox', 'id' => 'is_anonymous', 'value' => 1, 'class' => '', 'hiddenField' => false)) . "秘密";
-		    ?>
-	   </label>
-	</div>
-
-
-	<?php
-	    
-	    echo $this->Form->submit('エビート', array('class' => 'form-control btn btn-primary btn-block', 'style' => 'width:150px;'));
-		echo '<div id="count"></div>';
-	    echo $this->Form->end();
-
-	?>
-
 <div id="content_load">
 	<?php foreach ($Posts as $post): ?>
 
@@ -120,13 +86,13 @@
 							<div class="right_others clearfix">				
 								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '1');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
-<!-- 								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '2');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '2');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
 								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '3');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
 								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '4');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
-								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '5');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a> -->
+								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '5');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
 							</div>
 						</div>
@@ -211,10 +177,8 @@
 	<?php endforeach; ?>
 
     <div id="page-nav">
-        <?php echo $this->Paginator->next('',array('class'=>'next')); ?>
+        <?php echo $this->Paginator->next('次のページ',array('class'=>'next')); ?>
     </div>
 
 </div><!-- content_load -->
-
-
 </div>

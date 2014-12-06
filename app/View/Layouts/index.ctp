@@ -19,8 +19,10 @@
         echo $this->Html->script( 'site.min', array( 'inline' => false ) );
         echo $this->Html->script( 'ajaxButton', array( 'inline' => false ) );
         echo $this->Html->script( 'jquery.colorbox', array( 'inline' => false ) );
+        echo $this->Html->script( 'jquery.infinitescroll', array( 'inline' => false ) );
+        echo $this->Html->script( 'main', array( 'inline' => false ) );
         ?>       
- 
+        
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
@@ -188,12 +190,4 @@
 
 <script type="text/javascript">
     var delete_message = "削除します。一回消すと戻せないかもよ？"
-</script>
-
-<script>
-    $(function() {
-        setTimeout(function() {
-            $('#flashMessage').fadeOut("slow");
-        }, 1300);
-    });
 </script>
