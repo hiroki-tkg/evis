@@ -228,3 +228,14 @@ a{
 }
 
 
+
+/* Footer */
+.footer_col{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.footer_row{
+    margin-right: 0;
+    margin-left: 0;
+}
