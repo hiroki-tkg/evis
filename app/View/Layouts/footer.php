@@ -14,8 +14,8 @@
 		<div class="col-md-12 footer_col">
 			<div class="footer">
 				<div class="container">
-					<div class="clearfix">
-						<div class="footer-logo"><a href="#"><img src="img/footer-logo.png" />Evitter</a></div>
+					<div class="clearfix footer_content">
+						<div class="footer-logo"><a href="/">Evitter</a></div>
 						<dl class="footer-nav">
 							<dt class="nav-title">ABOUT</dt>
 							<dd class="nav-item"><a href="#">About Evitter</a></dd>
