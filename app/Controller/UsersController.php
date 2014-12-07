@@ -7,14 +7,6 @@ class UsersController extends AppController{
 	// public $layout = 'user';	
  	public $helpers = array( 'Js');
 
-	public function beforeFilter(){
-		$this->Auth->allow(array('*'));
-		if($this->params['action'] == 'opauthComplete') {
-	        $this->Security->csrfCheck = false;
-	        $this->Security->validatePost = false;
-	    }
-	}
-
 	public function opauth_complete() {
  		$this->autoRender = false;
 
@@ -30,6 +22,15 @@ class UsersController extends AppController{
     	// $this->redirect(array('action' => 'register'));
 
 	}
+
+		public function beforeFilter(){
+		$this->Auth->allow(array('*'));
+		if($this->params['action'] == 'opauthComplete') {
+	        $this->Security->csrfCheck = false;
+	        $this->Security->validatePost = false;
+	    }
+	}
+
 
 	public function register(){
 
