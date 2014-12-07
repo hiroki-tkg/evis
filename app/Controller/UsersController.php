@@ -1,7 +1,5 @@
 <?php
 
-// App::import('Vendor','facebook/facebook'); 
-
 class UsersController extends AppController{
 
 	public $name = 'User';
@@ -9,22 +7,17 @@ class UsersController extends AppController{
 	// public $layout = 'user';	
  	public $helpers = array( 'Js');
 
-	// public $paginate = array(
- //            'User' => array(
- //                'limit' => 10,
- //                'order' => array('id' => 'asc'),
- //            )
- //        );
 
+	public function opauth_complete() {
+       debug($this->data);
+	}
 
 	public function beforeFilter(){
 		$this->Auth->allow(array('signup', 'confirm'));
-		// $this->Facebook = new Facebook(array(
-  //           'appId' => '1492040851061804',
-  //           'secret' => 'e999384ca4b475d5b5c4b2a7315e92be',
-  //           'cookie' => true,
-  //       ));
-
+		if($this->params['action'] == 'opauthComplete') {
+	        $this->Security->csrfCheck = false;
+	        $this->Security->validatePost = false;
+	    }
 	}
 
 	public function index(){

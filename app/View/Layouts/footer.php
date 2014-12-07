@@ -1,15 +1,3 @@
-	<div class="container">
-		Footer	
-
-		<div
-		  class="fb-like"
-		  data-share="true"
-		  data-width="450"
-		  data-show-faces="true">
-		</div>	
-
-	</div>
-
 	<div class="row footer_row">
 		<div class="col-md-12 footer_col">
 			<div class="footer">
@@ -24,7 +12,7 @@
 						<dl class="footer-nav">
 							<dt class="nav-title">CONTENTS</dt>
 							<dd class="nav-item"><a href="/">つぶやき一覧</a></dd>
-							<dd class="nav-item"><a href="/anonymous">アノニマス一覧</a></dd>
+							<dd class="nav-item"><a href="/posts/anonymous">アノニマス一覧</a></dd>
 							<dd class="nav-item"><a href="/albums">アルバム</a></dd>
 						</dl>
 						<dl class="footer-nav">
@@ -42,27 +30,6 @@
 			</div>
 		</div>
 	</div>
-
-	</div>
-
-
-	<script>
-	  window.fbAsyncInit = function() {
-	    FB.init({
-	      appId      : '1492040851061804',
-	      xfbml      : true,
-	      version    : 'v2.2'
-	    });
-	  };
-
-	  (function(d, s, id){
-	     var js, fjs = d.getElementsByTagName(s)[0];
-	     if (d.getElementById(id)) {return;}
-	     js = d.createElement(s); js.id = id;
-	     js.src = "//connect.facebook.net/en_US/sdk.js";
-	     fjs.parentNode.insertBefore(js, fjs);
-	   }(document, 'script', 'facebook-jssdk'));
-	</script>
 
     </body>
 </html>

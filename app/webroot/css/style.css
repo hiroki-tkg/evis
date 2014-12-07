@@ -287,3 +287,73 @@ a{
 .list-group-item{
     border-bottom: 1px solid #dddddd;
 }
+
+.sidebar img{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+/* nav */
+@media (min-width: 992px){
+    .nav-width{
+        width: 815px;
+    }
+}
+
+@media (min-width: 1200px){
+    .nav-width{
+        width: 980px
+    }
+}
+
+/* アノニマス */
+@media (max-width: 440px){
+    .tweet_created{
+        /*display: none;*/
+    }
+}
+
+/* トップページ */
+@media (max-width: 500px){
+    .tweet_icon_box{
+        height: 40px;
+        width: 40px;
+    }
+    .tweet_name{
+        font-size: 13px;
+    }
+    .tweet_icon{
+        width: 40px;
+    }
+    .tweet{
+        padding: 10px;
+    }
+    .tweet_content{
+        font-size: 12px;
+    }
+    .tweet_bottom{
+        padding-left: 50px;
+    }
+    .tweet_created{
+       font-size: 11px;
+    }
+    .submit input{
+        margin-top: 50px;
+    }
+    #PostsAddPostForm{
+        border-radius: 0;
+    }
+    .navbar{
+        margin-bottom: 0px;
+    }
+    .index{
+        margin-top: -2px;
+    }
+}
+
+.column{
+    padding: 0;
+    overflow: hidden;
+}
+

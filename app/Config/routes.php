@@ -40,6 +40,10 @@
  //    );
 
 
+Router::connect(
+   '/opauth-complete/*', 
+   array('controller' => 'users', 'action' => 'opauth_complete')
+);
 
 
 

@@ -4,7 +4,7 @@
     $photos = $my_post - $my_photos;
 ?>
 
-<div class="col-sm-3 col-md-3 colum-left">
+<div class="col-sm-3 col-md-3 colum-left sidebar">
     <div class="thumbnail">
     <?php
         if(empty($user['profile_img'])){
@@ -23,9 +23,18 @@
         <a href="/users/page/<?php echo $user['id']; ?>"><li class="list-group-item"><span class="badge badge-primary"><?php echo $photos; ?></span>画像数</li></a>
         <a href="/users/page/<?php echo $user['id']; ?>"><li class="list-group-item"><span class="badge badge-success"><?php echo count($comment); ?></span>コメント数</li></a>
     </ul>
+
+    <img src="/img/ad_king_return.png">
+
+    <a href="https://www.facebook.com/events/575024619297446/?ref_dashboard_filter=calendar"><img src="/img/ad_snowbording.png"></a>
+
+    <a href="http://tabippo2015.com/world/"><img src="http://tabippo.net/wp-content/uploads/WORLD%E3%83%90%E3%83%8A%E3%83%BC_600%C3%974281.jpg"></a>
+
+    <a href="http://tabippo.net/zekkei-book-2/"><img src="http://tabippo.net/wp-content/uploads/%E7%B5%B6%E6%99%AF%E6%89%8B%E5%B8%B3%E3%83%90%E3%83%8A%E3%83%BC_600%C3%97428.jpg"></a>
+
 </div>
 
-<div class="col-sm-6 col-md-6">
+<div class="col-sm-7 col-md-7">
 
 <?php
     echo $this->Form->create('Posts', array('action' => 'add_post', 'type' => 'file', 'class' => 'clearfix'));
@@ -89,7 +98,7 @@
 					<?php 
 						if($post['Post']['is_anonymous'] == 1){
 						
-							echo "名無しの恵比寿さん";
+							echo "秘密の恵比寿さん";
 							echo '<span class="label label-warning is_anonymous_badge">秘密</span>';
 
 						}else{
@@ -102,7 +111,7 @@
 						}
 					?>
 					</span>
-					<?php echo "<span class='tweet_created'>".$post['Post']['created'] . "</span>"; ?>
+					<?php echo "<span class='tweet_created'>". $post['Post']['created'] . "</span>"; ?>
 				</div>
 				<div class="tweet_bottom">
 					<p class="tweet_content"><?php echo $post['Post']['content']; ?></p>
@@ -211,7 +220,7 @@
 	<?php endforeach; ?>
 
     <div id="page-nav">
-        <?php echo $this->Paginator->next('',array('class'=>'next')); ?>
+        <?php echo $this->Paginator->next('もっとエビートを見る',array('class'=>'next')); ?>
     </div>
 
 </div><!-- content_load -->
