@@ -42,7 +42,24 @@
 			<?php echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon')); ?>
 
 				<?php echo "<span class='tweet_name'><a href='/users/page/" . $post['User']['id'] ."'>" . $post['User']['username'] . "</a></span>"; ?>
-				<?php echo "<span class='tweet_created'>".$post['Post']['created'] . "</span>"; ?>
+				<?php 
+					// echo $evis->createdTime($created);
+					$now = time();
+					$created = strtotime($post['Post']['created']);						
+					$time = $now - $created;
+
+					if ($time < 60 ){
+						$var = $time . "秒"; 
+					}elseif ($time < 3600) {
+						$time = floor($time / 60);
+						$var = $time . "分"; 
+					}elseif ($time < 216000) {
+						$time = floor($time / 3600);
+						$var = $time . "時間"; 
+					}
+					echo "<span class='tweet_created'>". $var . "</span>"; 
+				?>
+				
 			</div>
 			<div class="tweet_bottom">
 				<p class="tweet_content"><?php echo $post['Post']['content']; ?></p>

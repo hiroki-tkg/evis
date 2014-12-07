@@ -111,7 +111,24 @@
 						}
 					?>
 					</span>
-					<?php echo "<span class='tweet_created'>". $post['Post']['created'] . "</span>"; ?>
+					<?php 
+						// echo $evis->createdTime($created);
+						$now = time();
+						$created = strtotime($post['Post']['created']);						
+						$time = $now - $created;
+
+						if ($time < 60 ){
+							$var = $time . "秒"; 
+						}elseif ($time < 3600) {
+							$time = floor($time / 60);
+							$var = $time . "分"; 
+						}elseif ($time < 216000) {
+							$time = floor($time / 3600);
+							$var = $time . "時間"; 
+						}
+						echo "<span class='tweet_created'>". $var . "</span>"; 
+					?>
+
 				</div>
 				<div class="tweet_bottom">
 					<p class="tweet_content"><?php echo $post['Post']['content']; ?></p>
@@ -127,9 +144,9 @@
 								<span class="count"><?php echo count($post['Comment']); ?></span>
 							</div>				
 							<div class="right_others clearfix">				
-								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '1');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+<!--								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '1');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
-<!-- 								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '2');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+ 								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '2');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
 								<a onclick="favorite(<?php echo $post['Post']['id']; ?>, '3');"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 
@@ -157,23 +174,55 @@
 						<div class="tweet_header">
 					<div class="tweet_icon_box">
 					<?php 
-						if(!empty($post['Comment'][$i]['User']['profile_img'])){
-							echo $this->Html->image('/files/user/profile_img/' . $post['Comment'][$i]["User"]["id"] ."/". $post['Comment'][$i]["User"]["profile_img"], array('class' => 'tweet_icon'));
+						if($post['Comment'][$i]['is_anonymous'] == 1){
+
+								echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon'));
+
 						}else{
-							echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon'));
+
+							if(!empty($post['Comment'][$i]['User']['profile_img'])){
+								echo $this->Html->image('/files/user/profile_img/' . $post['Comment'][$i]["User"]["id"] ."/". $post['Comment'][$i]["User"]["profile_img"], array('class' => 'tweet_icon'));
+							}else{
+								echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon'));
+							}
 						}
 					?>
 					</div>
 					<span class='tweet_name'>
 					<?php 
-						if(empty($post['Comment'][$i]['User']['username'])){
-							echo "存在しないユーザー";
+						if($post['Comment'][$i]['is_anonymous'] == 1){
+						
+							echo "秘密の恵比寿さん";
+							echo '<span class="label label-warning is_anonymous_badge">秘密</span>';
+
 						}else{
-							echo "<a href='posts/users/page/" . $post['Comment'][$i]['User']['id'] ."'>" . $post['Comment'][$i]['User']['username'] . "</a>"; 
+
+							if(empty($post['Comment'][$i]['User']['username'])){
+								echo "存在しないユーザー";
+							}else{
+								echo "<a href='posts/users/page/" . $post['Comment'][$i]['User']['id'] ."'>" . $post['Comment'][$i]['User']['username'] . "</a>"; 
+							}
 						}
+
 						?>
 					</span>
-					<?php echo "<span class='tweet_created'>".$post['Comment'][$i]['created'] . "</span>"; ?>
+					<?php 
+						// echo $evis->createdTime($created);
+						$now = time();
+						$created = strtotime($post['Comment'][$i]['created']);						
+						$time = $now - $created;
+
+						if ($time < 60 ){
+							$var = $time . "秒"; 
+						}elseif ($time < 3600) {
+							$time = floor($time / 60);
+							$var = $time . "分"; 
+						}elseif ($time < 216000) {
+							$time = floor($time / 3600);
+							$var = $time . "時間"; 
+						}
+						echo "<span class='tweet_created'>". $var . "</span>"; 
+					?>
 				</div>
 				<div class="tweet_bottom">
 					<p class="tweet_content"><?php echo $post['Comment'][$i]['content']; ?></p>
@@ -209,6 +258,17 @@
 				    echo $this->Form->hidden('user_id', array('value' => $user['id']));
 				    echo $this->Form->hidden('post_id', array('value' => $post['Post']['id']));
 				    echo $this->Form->textarea('content', array('rows'=> 3,'class' => 'form-control', 'placeholder' => 'コメントする'));
+				?>
+
+				<div class="checkbox_anonymous">
+				    <label for="is_anonymous" class="label_anonymous_comment">
+					    <?php
+					    echo $this->Form->checkbox('is_anonymous', array('type' => 'checkbox', 'id' => 'is_anonymous', 'value' => 1, 'class' => '', 'hiddenField' => false)) . "秘密でコメント";
+					    ?>
+				   </label>
+				</div>
+
+				<?php
 				    echo $this->Form->submit('エビート', array('class' => 'btn'));
 				    echo $this->Form->end();
 				?>

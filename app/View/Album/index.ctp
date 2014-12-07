@@ -1,4 +1,4 @@
-<div class="col-sm-12 col-md-12 album">
+<div class="col-sm-10 col-md-10 album">
 
 	<?php foreach ($Photos as $photo) { ?>
 

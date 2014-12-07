@@ -357,3 +357,10 @@ a{
     overflow: hidden;
 }
 
+/* コメント */
+.label_anonymous_comment{
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    cursor: pointer;
+}
