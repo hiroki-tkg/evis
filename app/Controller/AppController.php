@@ -36,7 +36,7 @@ class AppController extends Controller {
 
         'Auth' => array(
 
-            'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
+            'loginRedirect' => array('controller' => 'users', 'action' => 'register'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'index'),
             'loginError' => "This message shows up when the wrong credentials are used",
             'authError' => false,

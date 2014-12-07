@@ -19,15 +19,15 @@ class UsersController extends AppController{
  		$this->autoRender = false;
 
     	$data = array(
-		    'facebook_id' => $this->data['auth']['row']['id'],
-		    'email' => $this->data['auth']['row']['email'],
-			'gender' => $this->data['auth']['row']['gender'],
-		    'link' => $this->data['auth']['row']['link'],
-		    'name' => $this->data['auth']['row']['name']
+		    'facebook_id' => $this->data['auth']['raw']['id'],
+		    'email' => $this->data['auth']['raw']['email'],
+			'gender' => $this->data['auth']['raw']['gender'],
+		    'link' => $this->data['auth']['raw']['link'],
+		    'name' => $this->data['auth']['raw']['name']
 		);
 	    
 	    $this->Session->write('data', $data);
-    	$this->redirect(array('action' => 'register'));
+    	$this->redirect('/users/register');
 
 	}
 
@@ -38,6 +38,9 @@ class UsersController extends AppController{
 		$user = $this->User->find("all", array(
             'conditions' => array('User.facebook_id' => $data['facebook_id'])
         ));
+
+		pr($user);
+        exit;
 
 		// ログインした事ある
         if(!empty($user)){
