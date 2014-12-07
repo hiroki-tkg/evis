@@ -40,12 +40,6 @@
  //    );
 
 
-Router::connect(
-   '/opauth-complete/*', 
-   array('controller' => 'users', 'action' => 'opauth_complete')
-);
-
-
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
