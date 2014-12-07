@@ -116,3 +116,4 @@ Configure::write('Opauth.Strategy.Facebook', array(
    'app_secret' => 'e999384ca4b475d5b5c4b2a7315e92be'
 ));
 
+Configure::write('Opauth.path', '/auth/');
