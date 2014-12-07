@@ -111,7 +111,7 @@ class OpauthAppController extends AppController {
 		if (empty($completeUrl)) $completeUrl = Router::url('/opauth-complete');
 		
 		
-		$CakeRequest = new CakeRequest('/users/opauth-complete');
+		$CakeRequest = new CakeRequest('/opauth-complete');
 		$CakeRequest->data = $response;
 		
 		$Dispatcher = new Dispatcher();
