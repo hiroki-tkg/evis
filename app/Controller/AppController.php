@@ -43,7 +43,7 @@ class AppController extends Controller {
             'authenticate' => array(
             	'Form' => array(
                 	'userModel' => 'User',
-                    'fields' => array('username' => 'email','password' => 'password'),
+                    'fields' => array('username' => 'email','password' => 'facebook_id'),
                     'scope' => array('User.is_valid' => 1)
                 )
             )

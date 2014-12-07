@@ -7,17 +7,57 @@ class UsersController extends AppController{
 	// public $layout = 'user';	
  	public $helpers = array( 'Js');
 
-
-	public function opauth_complete() {
-       pr($this->data);
-	}
-
 	public function beforeFilter(){
 		$this->Auth->allow(array('*'));
 		if($this->params['action'] == 'opauthComplete') {
 	        $this->Security->csrfCheck = false;
 	        $this->Security->validatePost = false;
 	    }
+	}
+
+	public function opauth_complete() {
+ 		$this->autoRender = false;
+
+    	$data = array(
+		    'facebook_id' => $this->data['auth']['row']['id'],
+		    'email' => $this->data['auth']['row']['email'],
+			'gender' => $this->data['auth']['row']['gender'],
+		    'link' => $this->data['auth']['row']['link'],
+		    'name' => $this->data['auth']['row']['name']
+		);
+	    
+	    $this->Session->write('data', $data);
+    	$this->redirect(array('action' => 'register'));
+
+	}
+
+	public function register(){
+
+		$data = $this->Session->read('data');
+
+		$user = $this->User->find("all", array(
+            'conditions' => array('User.facebook_id' => $data['facebook_id'])
+        ));
+
+		// ログインした事ある
+        if(!empty($user)){
+
+	    	if ($this->Auth->login($user)){
+		        $this->Session->setFlash('You are Logged in succesfully.', 'default', array('class'=> 'alert alert-success'));			
+		        return $this->redirect(array('controller' => 'posts', 'action' => 'index'));
+	        }
+		   
+        // ログインした事ない(初めて)
+        }else{
+
+        	$this->User->save($data);
+  			$this->Session->setFlash('You are Logged in succesfully.', 'default', array('class'=> 'alert alert-success'));  
+     	    return $this->redirect(array('controller' => 'user', 'action' => 'waiting'));       
+
+        }
+	}
+
+	public function waiting(){
 	}
 
 	public function index(){
