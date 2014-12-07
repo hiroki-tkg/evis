@@ -27,7 +27,7 @@ class UsersController extends AppController{
 		);
 	    
 	    $this->Session->write('data', $data);
-    	$this->redirect('/users/register');
+    	// $this->redirect(array('action' => 'register'));
 
 	}
 
@@ -38,8 +38,6 @@ class UsersController extends AppController{
 		$user = $this->User->find("all", array(
             'conditions' => array('User.facebook_id' => $data['facebook_id'])
         ));
-
-        exit;
 
 		// ログインした事ある
         if(!empty($user)){
