@@ -13,7 +13,7 @@ class UsersController extends AppController{
 	}
 
 	public function beforeFilter(){
-		$this->Auth->allow(array('signup', 'confirm'));
+		$this->Auth->allow(array('*'));
 		if($this->params['action'] == 'opauthComplete') {
 	        $this->Security->csrfCheck = false;
 	        $this->Security->validatePost = false;
