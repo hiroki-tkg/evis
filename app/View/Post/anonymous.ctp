@@ -39,7 +39,7 @@
 					<?php 
 						if($post['Post']['is_anonymous'] == 1){
 
-								echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon'));
+								echo $this->Html->image('anonymous.png', array('class' => 'tweet_icon'));
 
 						}else{
 

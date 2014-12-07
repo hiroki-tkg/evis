@@ -82,7 +82,7 @@
 					<?php 
 						if($post['Post']['is_anonymous'] == 1){
 
-								echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon'));
+								echo $this->Html->image('anonymous.png', array('class' => 'tweet_icon'));
 
 						}else{
 
@@ -98,7 +98,7 @@
 					<?php 
 						if($post['Post']['is_anonymous'] == 1){
 						
-							echo "秘密の恵比寿さん";
+							echo "<a href='/posts/anonymous' class='anonymous_name'>秘密の恵比寿さん</a>";
 							echo '<span class="label label-warning is_anonymous_badge">秘密</span>';
 
 						}else{
@@ -176,7 +176,7 @@
 					<?php 
 						if($post['Comment'][$i]['is_anonymous'] == 1){
 
-								echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon'));
+								echo $this->Html->image('anonymous.png', array('class' => 'tweet_icon'));
 
 						}else{
 
@@ -192,7 +192,7 @@
 					<?php 
 						if($post['Comment'][$i]['is_anonymous'] == 1){
 						
-							echo "秘密の恵比寿さん";
+							echo "<a href='/posts/anonymous' class='anonymous_name'>秘密の恵比寿さん</a>";
 							echo '<span class="label label-warning is_anonymous_badge">秘密</span>';
 
 						}else{

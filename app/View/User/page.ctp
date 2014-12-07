@@ -33,13 +33,29 @@
     </div>
 </div>
 
-<div class="col-sm-6 col-md-6">
+<div class="col-sm-7 col-md-7">
 
 	<?php foreach ($posts as $post): ?>
-	<div id="comment_launch_<?php echo $post['Post']['id']; ?>" class="">
+	<div onclick="comment_launch(<?php echo $post['Post']['id']; ?>);" class="">
+
 		<div class="tweet">
 			<div class="tweet_header">
-			<?php echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon')); ?>
+				<div class="tweet_icon_box">
+					<?php 
+						if($post['Post']['is_anonymous'] == 1){
+
+								echo $this->Html->image('anonymous.png', array('class' => 'tweet_icon'));
+
+						}else{
+
+							if($post['User']['profile_img']){
+								echo $this->Html->image('/files/user/profile_img/' . $post["User"]["id"] ."/". $post["User"]["profile_img"], array('class' => 'tweet_icon'));
+							}else{
+								echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon'));
+							}
+						}
+					?>
+				</div>
 
 				<?php echo "<span class='tweet_name'><a href='/users/page/" . $post['User']['id'] ."'>" . $post['User']['username'] . "</a></span>"; ?>
 				<?php 
@@ -59,7 +75,7 @@
 					}
 					echo "<span class='tweet_created'>". $var . "</span>"; 
 				?>
-				
+
 			</div>
 			<div class="tweet_bottom">
 				<p class="tweet_content"><?php echo $post['Post']['content']; ?></p>
@@ -75,7 +91,7 @@
 							<span class="count"><?php echo count($post['Comment']); ?></span>
 						</div>				
 						<div class="right_others clearfix">				
-							<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+							<!-- <span class="glyphicon glyphicon-star" aria-hidden="true"></span> -->
 						</div>
 					</div>
 					<div class="tweet_bottom_meta_right">

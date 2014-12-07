@@ -8,6 +8,7 @@
 							<dt class="nav-title">ABOUT</dt>
 							<dd class="nav-item"><a href="#">About Evitter</a></dd>
 							<dd class="nav-item"><a href="#">Vision</a></dd>
+							<dd class="nav-item"><a href="#">Admin</a></dd>
 						</dl>
 						<dl class="footer-nav">
 							<dt class="nav-title">CONTENTS</dt>
@@ -16,7 +17,11 @@
 							<dd class="nav-item"><a href="/albums">アルバム</a></dd>
 						</dl>
 						<dl class="footer-nav">
-							<dt class="nav-title">GALLERY</dt>
+							<dt class="nav-title">LINK</dt>
+							<dd class="nav-item"><a href="">TABIPPO</a></dd>
+							<dd class="nav-item"><a href="">TABIPPO</a></dd>
+							<dd class="nav-item"><a href="">Event Carnival</a></dd>
+
 						</dl>
 						<dl class="footer-nav">
 							<dt class="nav-title">CONTACT</dt>
