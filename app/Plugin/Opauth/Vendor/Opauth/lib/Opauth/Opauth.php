@@ -265,6 +265,7 @@ class Opauth{
 		echo "<pre>";
 		print_r($response);
 		echo "</pre>";
+		echo "this!";
 	}
 	
 	/**

@@ -39,7 +39,6 @@ class UsersController extends AppController{
             'conditions' => array('User.facebook_id' => $data['facebook_id'])
         ));
 
-		pr($user);
         exit;
 
 		// ログインした事ある

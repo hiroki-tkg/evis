@@ -36,14 +36,14 @@ class AppController extends Controller {
 
         'Auth' => array(
 
-            'loginRedirect' => array('controller' => 'users', 'action' => 'register'),
+            'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'index'),
             'loginError' => "This message shows up when the wrong credentials are used",
             'authError' => false,
             'authenticate' => array(
             	'Form' => array(
                 	'userModel' => 'User',
-                    'fields' => array('username' => 'email','password' => 'facebook_id'),
+                    'fields' => array('username' => 'email','password' => 'password'),
                     'scope' => array('User.is_valid' => 1)
                 )
             )
