@@ -124,5 +124,5 @@ Configure::write('Opauth.Strategy.Facebook', array(
 /**
  * 認証用のURL設定
  */
-Configure::write('Opauth.path', '/skills/auth/');
+Configure::write('Opauth.path', '/evis/auth/');
 
