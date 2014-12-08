@@ -72,6 +72,12 @@
 					}elseif ($time < 216000) {
 						$time = floor($time / 3600);
 						$var = $time . "時間"; 
+					}elseif ($time < 5184000) {
+						$time = floor($time / 86400);
+						$var = $time . "日"; 
+					}elseif ($time < 155520000) {
+						$time = floor($time / 2592000);
+						$var = $time . "ヶ月"; 
 					}
 					echo "<span class='tweet_created'>". $var . "</span>"; 
 				?>
