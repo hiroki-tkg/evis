@@ -4,7 +4,7 @@ class UsersController extends AppController{
 
 	public $name = 'User';
 	public $uses = array('User', 'Post', 'Comment');
-	// public $layout = 'user';	
+	public $layout = 'login';	
  	public $helpers = array( 'Js');
 
 	public function beforeFilter(){
@@ -62,6 +62,7 @@ class UsersController extends AppController{
 	}
 
 	public function index(){
+		$this->layout = 'index';
 		// サービス紹介とかなので、あんま使わない
 	}
 
@@ -142,7 +143,8 @@ class UsersController extends AppController{
 			$this->paginate = array(
 				'conditions' => array(
 					'User.id' => $now,
-					'Post.delete_flag' => 0
+					'Post.delete_flag' => 0,
+					'Post.is_anonymous' => 0
 				),
 				'order' => array('Post.created' => 'DESC'),
 				'limit' => 20

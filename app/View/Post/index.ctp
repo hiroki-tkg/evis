@@ -24,7 +24,7 @@
         <a href="/users/page/<?php echo $user['id']; ?>"><li class="list-group-item"><span class="badge badge-success"><?php echo count($comment); ?></span>コメント数</li></a>
     </ul>
 
-    <img src="/img/ad_king_return.png">
+    <a href="http://ja.wikipedia.org/wiki/12%E6%9C%8822%E6%97%A5"><img src="/img/ad_king_return.png"></a>
 
     <a href="https://www.facebook.com/events/575024619297446/?ref_dashboard_filter=calendar"><img src="/img/ad_snowbording.png"></a>
 
@@ -112,27 +112,8 @@
 					?>
 					</span>
 					<?php 
-						// echo $evis->createdTime($created);
-						$now = time();
-						$created = strtotime($post['Post']['created']);						
-						$time = $now - $created;
-
-						if ($time < 60 ){
-							$var = $time . "秒"; 
-						}elseif ($time < 3600) {
-							$time = floor($time / 60);
-							$var = $time . "分"; 
-						}elseif ($time < 216000) {
-							$time = floor($time / 3600);
-							$var = $time . "時間"; 
-						}elseif ($time < 5184000) {
-							$time = floor($time / 86400);
-							$var = $time . "日"; 
-						}elseif ($time < 155520000) {
-							$time = floor($time / 2592000);
-							$var = $time . "ヶ月"; 
-						}
-							
+						$created = $post['Post']['created'];
+						$var = $this->CreatedTime->Time($created);
 						echo "<span class='tweet_created'>". $var . "</span>"; 
 					?>
 
@@ -214,20 +195,8 @@
 						?>
 					</span>
 					<?php 
-						// echo $evis->createdTime($created);
-						$now = time();
-						$created = strtotime($post['Comment'][$i]['created']);						
-						$time = $now - $created;
-
-						if ($time < 60 ){
-							$var = $time . "秒"; 
-						}elseif ($time < 3600) {
-							$time = floor($time / 60);
-							$var = $time . "分"; 
-						}elseif ($time < 216000) {
-							$time = floor($time / 3600);
-							$var = $time . "時間"; 
-						}
+						$created = $post['Comment'][$i]['created'];
+						$var = $this->CreatedTime->Time($created);
 						echo "<span class='tweet_created'>". $var . "</span>"; 
 					?>
 				</div>
@@ -287,7 +256,7 @@
 	<?php endforeach; ?>
 
     <div id="page-nav">
-        <?php echo $this->Paginator->next('もっとエビートを見る',array('class'=>'next')); ?>
+        <?php echo $this->Paginator->next('',array('class'=>'next')); ?>
     </div>
 
 </div><!-- content_load -->

@@ -32,13 +32,13 @@ $(function() {
         }
     });
 
-	$(window).unbind('.infscr');    // 初期化をやめ
+	// $(window).unbind('.infscr');    // 初期化をやめ
  
-	// クリックごとに動作をする
-	$('#page-nav a').click(function(){
-		$(document).trigger('retrieve.infscr');
-		return false;
-	});
+	// // クリックごとに動作をする
+	// $('#page-nav a').click(function(){
+	// 	$(document).trigger('retrieve.infscr');
+	// 	return false;
+	// });
 });
 
 // Flashメッセージをゆっくり消す

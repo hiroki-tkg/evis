@@ -8,7 +8,7 @@ class PostsController extends AppController{
 	public $uses = array('Post', 'User', 'Comment', 'Favorite');
 	public $layout = 'index';	
 	public $components = array('Session');
- 	public $helpers = array('Js', 'Time');
+ 	public $helpers = array('Js', 'CreatedTime');
 
 	public function beforeFilter(){
 	}
