@@ -15,23 +15,6 @@ class UsersController extends AppController{
 	 //    }
 	}
 
-
-	public function opauth_complete() {
- 		$this->autoRender = false;
-
-    	$data = array(
-		    'facebook_id' => $this->data['auth']['raw']['id'],
-		    'email' => $this->data['auth']['raw']['email'],
-			'gender' => $this->data['auth']['raw']['gender'],
-		    'link' => $this->data['auth']['raw']['link'],
-		    'name' => $this->data['auth']['raw']['name']
-		);
-	    
-	    $this->Session->write('data', $data);
-    	// $this->redirect(array('action' => 'register'));
-
-	}
-
 	public function register(){
 
 		$data = $this->Session->read('data');
