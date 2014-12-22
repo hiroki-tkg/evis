@@ -107,13 +107,3 @@ CakeLog::config('error', array(
 ));
 
 CakePlugin::load('Upload');
-
-CakePlugin::load('Opauth', array('routes' => true, 'bootstrap' => true));
-
-// Using Facebook strategy as an example
-Configure::write('Opauth.Strategy.Facebook', array(
-   'app_id' => '1492040851061804',
-   'app_secret' => 'e999384ca4b475d5b5c4b2a7315e92be'
-));
-
-Configure::write('Opauth.path', '/auth/');
