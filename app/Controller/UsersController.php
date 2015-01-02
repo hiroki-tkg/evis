@@ -9,10 +9,6 @@ class UsersController extends AppController{
 
 	public function beforeFilter(){
 		$this->Auth->allow(array('*'));
-		// if($this->params['action'] == 'opauthComplete') {
-	 //        $this->Security->csrfCheck = false;
-	 //        $this->Security->validatePost = false;
-	 //    }
 	}
 
 	public function register(){
@@ -66,16 +62,83 @@ class UsersController extends AppController{
 		}
 	}
 
+	public function request(){
+	    $url = $this->Facebook->getLoginUrl( array(
+	    	'redirect_uri' => '/users/signup/',
+	        'scope' => 'user_interests,email,user_likes,user_birthday,user_interests,user_about_me,user_activities',
+	        'canvas' => 1,
+	        'fbconnect' => 0
+	    ));
+    	$this->redirect($url);
+	}
+
 	public function signup(){
-		// 登録処理
-		if(!empty($this->data)){
-			if($this->data){
-				$this->User->create();
-				$this->User->save($this->data);
-				$this->redirect(array('action'=>'confirm'));
-			}
+
+		$user = $this->Facebook->getUser();
+        $me = $this->Facebook->api('/me','GET',array('locale'=>'en_US'));
+        $me_birth = $this->Facebook->api('/me?fields=birthday');
+
+        $facebook_id = $user;
+
+        $user = '';
+        $user = $this->User->find("all", array(
+            'conditions' => array('User.facebook_id' => $facebook_id)
+        ));
+
+        // $userに値なし。FBログインがはじめてのユーザー
+        if (empty($user)) {
+
+    	    $facebook_id = $me['id'];
+            $email = $me['email'];
+            $first = $me['first_name'];
+            $last = $me['last_name'];
+            $gender = $me['gender'];
+            $link = $me['link'];
+            $locale = $me['locale'];
+    		$img  = 'https://graph.facebook.com/' . $me["id"]  . '/picture?type=large';
+            $username = $me['name'];
+            $timezone = $me['timezone'];
+
+            $birthday = $me_birth['birthday'];
+			$birthdays = explode('/', $birthday);
+
+            $data = array(
+                'facebook_id' => $facebook_id, 
+                'email' => $email, 
+                'first_name' => $first, 
+                'last_name' => $last, 
+                'gender' => $gender, 
+                'link' => $link,
+                'locale' => $locale,
+                'img' => $img,
+                'name' => $username,
+                'birth_month' => $birthdays[0],
+                'birth_day' => $birthdays[1],
+                'birth_year' => $birthdays[2],
+                'timezone' => $timezone
+            );     
+
+			$this->User->create();
+			$this->User->save($data);		           
+
+			// メール送信
+            $email_address = $email;
+            $title = "[恵比寿ハウス] Evitterにようこそ";
+			$msg = 
+				"Evitterにようこそ\r\r".
+				"楽しんでってね\r".
+				"\r\rEvitter制作チーム";
+			$email = new CakeEmail('smtp');
+			$email -> to($email_address)
+				->emailFormat('text')
+				->subject($title)
+				->send($msg);
+
+            return $this->redirect(array('action'=>'confirm'));
+
+        }else{
+	        $this->Session->setFlash('Your account has not been activated.', 'default', array('class'=> 'alert alert-danger'));			
 		}
-		// メール送信
 	}
 
 	public function confirm(){

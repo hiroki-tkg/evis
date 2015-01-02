@@ -2,7 +2,7 @@
 	<h2>
 		<strong>Evitter始めませんか?</strong>  登録する
 	</h2>
-	<button type="submit" class="btn signup-btn u-floatRight">Evitterに登録する</button>
+	<a href="/users/request"><button type="submit" class="btn signup-btn u-floatRight">Evitterに登録する</button></a>
 </div>
 
 
