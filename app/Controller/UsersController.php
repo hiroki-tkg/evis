@@ -1,41 +1,44 @@
 <?php
 
+App::import('Vendor','facebook/facebook'); 
+
 class UsersController extends AppController{
 
 	public $name = 'User';
 	public $uses = array('User', 'Post', 'Comment');
 	public $layout = 'login';	
  	public $helpers = array( 'Js');
+	public $components = array('Email');
 
 	public function beforeFilter(){
-		$this->Auth->allow(array('*'));
+		$this->Auth->allow(array('signup', 'thanks'));
 	}
 
-	public function register(){
+	// public function register(){
 
-		$data = $this->Session->read('data');
+	// 	$data = $this->Session->read('data');
 
-		$user = $this->User->find("all", array(
-            'conditions' => array('User.facebook_id' => $data['facebook_id'])
-        ));
+	// 	$user = $this->User->find("all", array(
+ //            'conditions' => array('User.facebook_id' => $data['facebook_id'])
+ //        ));
 
-		// ログインした事ある
-        if(!empty($user)){
+	// 	// ログインした事ある
+ //        if(!empty($user)){
 
-	    	if ($this->Auth->login($user)){
-		        $this->Session->setFlash('You are Logged in succesfully.', 'default', array('class'=> 'alert alert-success'));			
-		        return $this->redirect(array('controller' => 'posts', 'action' => 'index'));
-	        }
+	//     	if ($this->Auth->login($user)){
+	// 	        $this->Session->setFlash('You are Logged in succesfully.', 'default', array('class'=> 'alert alert-success'));			
+	// 	        return $this->redirect(array('controller' => 'posts', 'action' => 'index'));
+	//         }
 		   
-        // ログインした事ない(初めて)
-        }else{
+ //        // ログインした事ない(初めて)
+ //        }else{
 
-        	$this->User->save($data);
-  			$this->Session->setFlash('You are Logged in succesfully.', 'default', array('class'=> 'alert alert-success'));  
-     	    return $this->redirect(array('controller' => 'user', 'action' => 'waiting'));       
+ //        	$this->User->save($data);
+ //  			$this->Session->setFlash('You are Logged in succesfully.', 'default', array('class'=> 'alert alert-success'));  
+ //     	    return $this->redirect(array('controller' => 'user', 'action' => 'waiting'));       
 
-        }
-	}
+ //        }
+	// }
 
 	public function waiting(){
 	}
@@ -52,94 +55,161 @@ class UsersController extends AppController{
 				return $this->redirect(array('controller' => 'posts', 'action' => 'index'));
 			} else {
 		        // Userのis_validを取得
-		        $user_state = $this->User->field( 'is_valid', array( 'email' => $this->data['User']['email']));
-		        if ($user_state == 0){
-		            $this->Session->setFlash( '現在、管理者の承認待ちです。もう少し待ってね');
-		        } else {
-		            $this->Session->setFlash( 'ユーザ名もしくはパスワードが違います');
-		        }
+		        echo "失敗しました";
+		        $user_status = $this->User->field( 'is_valid', array( 'email' => $this->data['User']['email']));
+		        $user_status = "e";
+
+		        if(empty($user_status)){
+		        
+		            $this->Session->setFlash('このメールアドレスは登録されてません。');		        	
+
+		        }else{
+			    // 0 : 未アクティベート
+		        // 1 : 管理者承認待ち
+		        // 2 : 管理者承認済み
+
+			        if ($user_status == 0){
+			            $this->Session->setFlash( 'アカウントをアクティベートして下さい。');
+			        } else {
+			            $this->Session->setFlash( 'ユーザ名もしくはパスワードが違います');
+			        }
+			    }
 		    }
 		}
 	}
 
-	public function request(){
-	    $url = $this->Facebook->getLoginUrl( array(
-	    	'redirect_uri' => '/users/signup/',
-	        'scope' => 'user_interests,email,user_likes,user_birthday,user_interests,user_about_me,user_activities',
-	        'canvas' => 1,
-	        'fbconnect' => 0
-	    ));
-    	$this->redirect($url);
-	}
-
 	public function signup(){
+		$this->layout = false;
+		if(!empty($this->data)){
+			$user_info = $this->data;
+			$email = $user_info['User']['email'];
+			
+			$duplicate = $this->User->find("first", array(
+        		'conditions' => array('User.email' => $email),
+        		'fields' => 'User.email',
+    		));
 
-		$user = $this->Facebook->getUser();
-        $me = $this->Facebook->api('/me','GET',array('locale'=>'en_US'));
-        $me_birth = $this->Facebook->api('/me?fields=birthday');
+			if(!$duplicate){
 
-        $facebook_id = $user;
+				$this->User->create();
+				$this->User->save($this->data);
 
-        $user = '';
-        $user = $this->User->find("all", array(
-            'conditions' => array('User.facebook_id' => $facebook_id)
-        ));
+				// レベルレコードを作成・保存
+				$saved_user = $this->User->find('first', array('conditions' => array(
+					'email' => $this->data['User']['email']
+				)));
 
-        // $userに値なし。FBログインがはじめてのユーザー
-        if (empty($user)) {
+				// メール送信
+	            $url = FULL_BASE_URL                
+	                . $this->request->webroot       
+	                . DS . 'users' . DS  . 'activate' . DS
+	                . $this->User->id . DS          
+	                . $this->User->getActivationHash(); 
+	            
+	            $email_address = $this->data['User']['email'];
+	            $title = "【Evitter】 会員登録でかい！！";
+				$msg = 
+					"Evitterにようこそ!\r\r".
+					"Evitterはひろきが作る作る言って途中までやっては飽きて放棄し、また唐突として作業を再開というのを
+					繰り返して、ようやくローンチまでこぎ着けたサービスです。これから改善していくので、使ってみてね。
+					以下のリンクを押して、アカウントをアクティベートして下さい。\r".
+					$url .
+					"\r\r@hiroki_tkg";
+				$email = new CakeEmail('gmail');
+				$email -> to($email_address)
+					->emailFormat('text')
+					->subject($title)
+					->send($msg);
 
-    	    $facebook_id = $me['id'];
-            $email = $me['email'];
-            $first = $me['first_name'];
-            $last = $me['last_name'];
-            $gender = $me['gender'];
-            $link = $me['link'];
-            $locale = $me['locale'];
-    		$img  = 'https://graph.facebook.com/' . $me["id"]  . '/picture?type=large';
-            $username = $me['name'];
-            $timezone = $me['timezone'];
+	           	return $this->redirect(array('controller' => 'users', 'action' => 'thanks'));
 
-            $birthday = $me_birth['birthday'];
-			$birthdays = explode('/', $birthday);
-
-            $data = array(
-                'facebook_id' => $facebook_id, 
-                'email' => $email, 
-                'first_name' => $first, 
-                'last_name' => $last, 
-                'gender' => $gender, 
-                'link' => $link,
-                'locale' => $locale,
-                'img' => $img,
-                'name' => $username,
-                'birth_month' => $birthdays[0],
-                'birth_day' => $birthdays[1],
-                'birth_year' => $birthdays[2],
-                'timezone' => $timezone
-            );     
-
-			$this->User->create();
-			$this->User->save($data);		           
-
-			// メール送信
-            $email_address = $email;
-            $title = "[恵比寿ハウス] Evitterにようこそ";
-			$msg = 
-				"Evitterにようこそ\r\r".
-				"楽しんでってね\r".
-				"\r\rEvitter制作チーム";
-			$email = new CakeEmail('smtp');
-			$email -> to($email_address)
-				->emailFormat('text')
-				->subject($title)
-				->send($msg);
-
-            return $this->redirect(array('action'=>'confirm'));
-
-        }else{
-	        $this->Session->setFlash('Your account has not been activated.', 'default', array('class'=> 'alert alert-danger'));			
+			}else{
+				$this->Session->setFlash('メール送信済み.', 'default', array('class'=> 'alert alert-danger'));
+			}
 		}
 	}
+
+
+
+
+	// public function request(){
+	//     $url = $this->Facebook->getLoginUrl( array(
+	//     	'redirect_uri' => '/users/signup/',
+	//         'scope' => 'user_interests,email,user_likes,user_birthday,user_interests,user_about_me,user_activities',
+	//         'canvas' => 1,
+	//         'fbconnect' => 0
+	//     ));
+ //    	$this->redirect($url);
+	// }
+
+	// public function signup(){
+
+	// 	$user = $this->Facebook->getUser();
+ //        $me = $this->Facebook->api('/me','GET',array('locale'=>'en_US'));
+ //        $me_birth = $this->Facebook->api('/me?fields=birthday');
+
+ //        $facebook_id = $user;
+
+ //        $user = '';
+ //        $user = $this->User->find("all", array(
+ //            'conditions' => array('User.facebook_id' => $facebook_id)
+ //        ));
+
+ //        // $userに値なし。FBログインがはじめてのユーザー
+ //        if (empty($user)) {
+
+ //    	    $facebook_id = $me['id'];
+ //            $email = $me['email'];
+ //            $first = $me['first_name'];
+ //            $last = $me['last_name'];
+ //            $gender = $me['gender'];
+ //            $link = $me['link'];
+ //            $locale = $me['locale'];
+ //    		$img  = 'https://graph.facebook.com/' . $me["id"]  . '/picture?type=large';
+ //            $username = $me['name'];
+ //            $timezone = $me['timezone'];
+
+ //            $birthday = $me_birth['birthday'];
+	// 		$birthdays = explode('/', $birthday);
+
+ //            $data = array(
+ //                'facebook_id' => $facebook_id, 
+ //                'email' => $email, 
+ //                'first_name' => $first, 
+ //                'last_name' => $last, 
+ //                'gender' => $gender, 
+ //                'link' => $link,
+ //                'locale' => $locale,
+ //                'img' => $img,
+ //                'name' => $username,
+ //                'birth_month' => $birthdays[0],
+ //                'birth_day' => $birthdays[1],
+ //                'birth_year' => $birthdays[2],
+ //                'timezone' => $timezone
+ //            );     
+
+	// 		$this->User->create();
+	// 		$this->User->save($data);		           
+
+	// 		// メール送信
+ //            $email_address = $email;
+ //            $title = "[恵比寿ハウス] Evitterにようこそ";
+	// 		$msg = 
+	// 			"Evitterにようこそ\r\r".
+	// 			"楽しんでってね\r".
+	// 			"\r\rEvitter制作チーム";
+	// 		$email = new CakeEmail('smtp');
+	// 		$email -> to($email_address)
+	// 			->emailFormat('text')
+	// 			->subject($title)
+	// 			->send($msg);
+
+ //            return $this->redirect(array('action'=>'confirm'));
+
+ //        }else{
+	//         $this->Session->setFlash('Your account has not been activated.', 'default', array('class'=> 'alert alert-danger'));			
+	// 	}
+	// }
 
 	public function confirm(){
 

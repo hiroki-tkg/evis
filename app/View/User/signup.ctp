@@ -1,7 +1,5 @@
 <?php
 
-    $fb = $this->Session->read('data');
-
 	echo $this->Form->create('User', array('action' => 'signup'));
 	echo $this->Form->input('username', array('class' => ''));
 	echo $this->Form->input('email', array('class' => ''));

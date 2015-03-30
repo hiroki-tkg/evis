@@ -18,10 +18,8 @@
 						</dl>
 						<dl class="footer-nav">
 							<dt class="nav-title">LINK</dt>
-							<dd class="nav-item"><a href="">TABIPPO</a></dd>
-							<dd class="nav-item"><a href="">TABIPPO</a></dd>
-							<dd class="nav-item"><a href="">Event Carnival</a></dd>
-
+							<dd class="nav-item"><a href="http://tabippo.net">TABIPPO</a></dd>
+							<dd class="nav-item"><a href="http://event-carnival.com">Event Carnival</a></dd>
 						</dl>
 						<dl class="footer-nav">
 							<dt class="nav-title">CONTACT</dt>

@@ -23,7 +23,7 @@
         echo $this->Html->script( 'jquery.infinitescroll', array( 'inline' => false ) );
         echo $this->Html->script( 'main', array( 'inline' => false ) );
         ?>       
-        
+
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
@@ -63,7 +63,13 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a class="nav-link" href="/albums">アルバム</a></li>
-                            <li><a class="nav-link user_name" href="/users/page/<?php echo $user['id']; ?>"><?php echo $user['username']; ?></a></li>
+                            <li class="user_popup"><a class="nav-link user_name"><?php echo $user['username']; ?></a></li>
+                            <li>
+                                <ul class="nav_sub">
+                                    <a href="/users/page/<?php echo $user['id']; ?>"><li>Mypage</li></a>
+                                    <a href="/users/logout"><li>Logout</li></a>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>

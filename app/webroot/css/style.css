@@ -22,7 +22,8 @@ a{
 }
 .index{
     text-align: left;
-    margin-top: 10px;
+    padding-top: 10px;
+    background: #f5f8fa;
 }
 
 #is_anonymous{
@@ -308,6 +309,25 @@ a{
     .nav-width{
         width: 980px
     }
+}
+
+.nav_sub{
+  position: absolute;
+  top: 50px;
+  right: 0px;   
+  width: 100px;
+  display: none;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  background: #fff;
+  box-shadow: 1px 1px 5px #ddd;
+}
+
+.nav_sub li{
+    padding: 15px 10px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 /* アノニマス */

@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::import('Vendor','facebook/facebook'); 
 
 /**
  * Application Controller
@@ -32,7 +33,10 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-	    public $components = array(
+    public $helpers = array('Form', 'Html');
+    public $uses = array('User');
+
+    public $components = array(
 
         'Auth' => array(
 
@@ -50,4 +54,14 @@ class AppController extends Controller {
         ),
         'Session',
     );
+    
+    public function beforeFilter(){
+        // $this->Auth->allow(array('controller' => 'pages', 'action' => 'display'));
+        $this->Facebook = new Facebook(array(
+            'appId' => '1427098287515013',
+            'secret' => 'f37abbc72c1006d6e3fcd29b61080a98',
+            'cookie' => true,
+        ));
+    }
+
 }

@@ -46,19 +46,34 @@ class EmailConfig {
 		//'headerCharset' => 'utf-8',
 	);
 
-	public $smtp = array(
+	public $gmail = array(
 		'transport' => 'Smtp',
-		'from' => array('site@localhost' => 'My Site'),
-		'host' => 'localhost',
-		'port' => 25,
-		'timeout' => 30,
-		'username' => 'user',
-		'password' => 'secret',
-		'client' => null,
-		'log' => false,
+		'from' => array('tkg.japan@gmail.com' => 'Evitter運営事務局'),
+		'host' => 'ssl://smtp.gmail.com',
+		'port' => 465,
+		// 'timeout' => 30,
+		'username' => 'tkg.japan@gmail.com',
+		'password' => '55bkkhiro702130',
+		// 'client' => null,
+		// 'log' => false,
 		//'charset' => 'utf-8',
 		//'headerCharset' => 'utf-8',
 	);
+
+
+	// public $smtp = array(
+	// 	'transport' => 'Smtp',
+	// 	'from' => array('site@localhost' => 'My Site'),
+	// 	'host' => 'localhost',
+	// 	'port' => 25,
+	// 	'timeout' => 30,
+	// 	'username' => 'user',
+	// 	'password' => 'secret',
+	// 	'client' => null,
+	// 	'log' => false,
+	// 	//'charset' => 'utf-8',
+	// 	//'headerCharset' => 'utf-8',
+	// );
 
 	public $fast = array(
 		'from' => 'you@localhost',

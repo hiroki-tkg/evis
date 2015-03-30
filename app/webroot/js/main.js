@@ -61,3 +61,10 @@ function comment_launch(id){
 	});
 
 }
+
+// navの
+$(function(){
+    $('.user_popup').click(function(){
+        $('.nav_sub').toggle();
+    });
+});

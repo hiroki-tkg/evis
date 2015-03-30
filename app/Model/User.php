@@ -22,6 +22,17 @@ class User extends AppModel {
 	    return true;
 	}
 
+
+	public function getActivationHash() {
+        // ユーザIDの有無確認
+        if (!isset($this->id)) {
+            return false;
+        }
+        // 更新日時をハッシュ化
+        return Security::hash( $this->field('updated'), 'sha1', true);
+    }
+
+
     public $actsAs = [
         'Upload.Upload' => [
             'profile_img' => [
