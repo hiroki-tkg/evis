@@ -24,13 +24,8 @@
         <a href="/users/page/<?php echo $user['id']; ?>"><li class="list-group-item"><span class="badge badge-success"><?php echo count($comment); ?></span>コメント数</li></a>
     </ul>
 
-    <a href="http://ja.wikipedia.org/wiki/12%E6%9C%8822%E6%97%A5"><img src="/img/ad_king_return.png"></a>
+    <a href="http://ja.wikipedia.org/wiki/12%E6%9C%8822%E6%97%A5"><img src="/img/ad_1.png"></a>
 
-    <a href="https://www.facebook.com/events/575024619297446/?ref_dashboard_filter=calendar"><img src="/img/ad_snowbording.png"></a>
-
-    <a href="http://tabippo2015.com/world/"><img src="http://tabippo.net/wp-content/uploads/WORLD%E3%83%90%E3%83%8A%E3%83%BC_600%C3%974281.jpg"></a>
-
-    <a href="http://tabippo.net/zekkei-book-2/"><img src="http://tabippo.net/wp-content/uploads/%E7%B5%B6%E6%99%AF%E6%89%8B%E5%B8%B3%E3%83%90%E3%83%8A%E3%83%BC_600%C3%97428.jpg"></a>
 
 </div>
 
