@@ -1,13 +1,201 @@
+<?php 
+  if(strpos($_SERVER['HTTP_USER_AGENT'],'ipod')!==false ||
+  strpos($_SERVER['HTTP_USER_AGENT'],'iPhone')!==false ||
+  strpos($_SERVER['HTTP_USER_AGENT'],'Windows Phone')!==false ||
+  strpos($_SERVER['HTTP_USER_AGENT'],'Android')!==false){
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Evitter</title>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+
+        <link rel="shortcut icon" href="favicon_16.ico"/>
+        <link rel="bookmark" href="favicon_16.ico"/>
+
+        <!-- CSS & Js -->
+        <?php 
+        echo $this->Html->css('site.min');
+        echo $this->Html->css('style');
+        echo $this->Html->css('colorbox');
+        
+        echo $this->Html->script( '//code.jquery.com/jquery-2.1.1.min.js', array( 'inline' => false) );
+        echo $this->Html->script( 'site.min', array( 'inline' => false ) );
+        echo $this->Html->script( 'ajaxButton', array( 'inline' => false ) );
+        echo $this->Html->script( 'jquery.colorbox', array( 'inline' => false ) );
+        echo $this->Html->script( 'jquery.infinitescroll', array( 'inline' => false ) );
+        echo $this->Html->script( 'main', array( 'inline' => false ) );
+        ?>       
+
+        <style type="text/css">
+          .row{
+            margin: 0;
+          }
+
+          input{
+            margin-top: 20px;
+          }
+
+          #UserEmail, #UserPassword{
+            height: 50px;            
+          }
+
+          .submit input {
+            color:#333;
+            width: 100%;
+          }
+        </style>
+
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+        <!--[if lt IE 9]>
+            <?php echo $this->Html->script( 'html5shiv', array( 'inline' => false ) ); ?>
+            <?php echo $this->Html->script( 'respond.min', array( 'inline' => false ) ); ?>            
+        <![endif]-->
+
+
+        <?php
+            echo $this->fetch('meta');
+            echo $this->fetch('css');
+            echo $this->fetch('script');
+            echo $this->Html->meta('icon');
+        ?>
+
+    </head>
+    
+    <body class="home">
+
+        <div class="docs-header header--noBackground">
+            <!--nav-->
+            <nav class="navbar navbar-default navbar-custom" role="navigation">
+                <div class="container nav-width">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>    
+                        <?php echo $this->Html->link( $this->Html->image(
+                            'logo.png', array('alt' => 'logo', 'border' => '0', 'class' => 'logo')), '/',
+                            array('escape' => false));
+                        ?>
+                    </div>
+                    <?php if(!empty($user)){ ?>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="nav-link" href="/albums">アルバム</a></li>
+                                <li class="user_popup"><a class="nav-link user_name"><?php echo $user['username']; ?></a></li>
+                                <li>
+                                    <ul class="nav_sub">
+                                        <a href="/users/page/<?php echo $user['id']; ?>"><li>Mypage</li></a>
+                                        <a href="/users/logout"><li>Logout</li></a>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    <?php } ?>
+                </div>
+            </nav>
+
+            <?php echo $this->Session->flash(); ?>
+
+            <div class="index">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 column">
+                            <div class="row">
+                                
+                              <div class="col-sm-0 col-md-1 left-space"></div>
+
+                                    <?php echo $this->fetch('content'); ?>
+
+                              <div class="col-sm-0 col-md-1 right-space"></div>
+
+                                
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>           
+    
+            </div>
+        
+        <?php require('footer.php'); ?>
+
+<script type="text/javascript">
+    var delete_message = "削除します。一回消すと戻せないかもよ？"
+</script>
+
+
+<?php }else{ ?>
+
+
 <!DOCTYPE html>
 	<head>
 		<meta charset="utf-8">
 	    <link rel="stylesheet" href="https://abs.twimg.com/a/1418162186/css/t1/twitter_core.bundle.css">
 	    <link rel="stylesheet" href="https://abs.twimg.com/a/1418162186/css/t1/twitter_logged_out.bundle.css">
+      <?php
+        echo $this->Html->css('style');
+        echo $this->Html->script( '//code.jquery.com/jquery-2.1.1.min.js', array( 'inline' => false) );
+      ?>
 	    <title>Evitterへようこそ - ログインまたは新規登録</title>
       	<meta name="robots" content="NOODP">
       	<meta name="description" content="友だちや魅力的な人々とつながって、興味のある最新情報を見つけましょう。そして、いま起きているできごとを様々な角度から見てみましょう。">
+        <style type="text/css">
+        .login_form{
+          padding: 0 15px;
+        }
+        .front-signup .btn {
+          height: 35px;
+        }
+        .front-signup .btn{
+          color: rgb(102, 117, 127);
+          float: none;
+          margin-top: 20px;
+          border: 1px solid #ccc;
+        }
+        .front-signup .submit input {
+          width: 100%;
+          margin-left:0;
+        }
+        .front-signup h2 a{
+          background-color: #f89406;
+          background-image: -webkit-gradient(linear,left top,left bottom,from(#fbb450),to(#f89406));
+          background-image: -webkit-linear-gradient(top,#fbb450,#f89406);
+          background-image: linear-gradient(to bottom,#fbb450,#f89406);
+          background-repeat: repeat-x;
+          border: 1px solid #cccccc;
+          border-color: #f89406 #f89406 #ad6704;
+          border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+          border-radius: 4px;
+          -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+          color: #ffffff;
+          cursor: pointer;
+          display: inline-block;
+          font-size: 16px;
+          line-height: 13px;
+          margin: 0;
+          margin-left: 15px;
+          padding: 10px 20px;
+          text-align: center;
+          text-decoration: none;
+          text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+          outline: 0;
+          vertical-align: middle;
+        }
+        </style>
+
   </head>
-  <body class="three-col logged-out asian ja front-page-photo-set front-page" data-fouc-class-names="swift-loading" dir="ltr">
+  <body class="three-col logged-out asian ja front-page-photo-set front-page login_page" data-fouc-class-names="swift-loading" dir="ltr">
     <div id="doc" class="">
         <div class="topbar js-topbar    ">
   <div class="global-nav" data-section-term="top_nav">
@@ -92,6 +280,7 @@
       <img class="front-image" src="https://abs.twimg.com/a/1418162186/img/t1/front_page/exp_wc2014_gen_laurenlemon.jpg" alt="">
     </div>
 
+      <?php echo $this->Session->flash(); ?>
   <div class="front-card   ">
 
       <div class="front-welcome">
@@ -102,7 +291,6 @@
           </div>
 
       </div>
-
 
       <?php echo $this->Session->flash(); ?>
 
@@ -794,7 +982,17 @@
 
 </div>
 
-    
-    <div id="spoonbill-outer"></div>
+        <div id="spoonbill-outer"></div>
+  
+        <script type="text/javascript">
+        // Flashメッセージをゆっくり消す
+          $(function() {
+              setTimeout(function() {
+                  $('#flashMessage').fadeOut("slow");
+              }, 1300);
+          });
+        </script>
   </body>
 </html>
+
+<?php } ?>

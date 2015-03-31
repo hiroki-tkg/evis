@@ -8,13 +8,16 @@
       if($this->Session->check('Message.auth'))
       
       echo $this->Session->flash('auth');
-      echo $this->Form->create('User', array('action' => 'login', 'class'=>'form-horizontal'));
+      echo $this->Form->create('User', array('action' => 'login', 'class'=>'form-horizontal login_form'));
+
       echo '<div class="js-float-label-wrapper">';
-      echo $this->Form->input('email', array('class' => 'form-control'));
+      echo $this->Form->input('email', array('class' => 'form-control', 'label' => false, 'placeholder' => 'Email'));
       echo '</div>';
+      
       echo '<div class="js-float-label-wrapper">';
-      echo $this->Form->input('password', array('class' => 'form-control'));
+      echo $this->Form->input('password', array('class' => 'form-control', 'label' => false, 'placeholder' => 'パスワード'));
       echo '</div>';
+      
       echo $this->Form->submit('ログイン', array('class'=>'btn btn-default'));
       echo $this->Form->end();
     ?>

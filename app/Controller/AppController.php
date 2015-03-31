@@ -20,7 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
-App::import('Vendor','facebook/facebook'); 
+// App::import('Vendor','facebook/facebook'); 
 
 /**
  * Application Controller
@@ -48,7 +48,7 @@ class AppController extends Controller {
             	'Form' => array(
                 	'userModel' => 'User',
                     'fields' => array('username' => 'email','password' => 'password'),
-                    'scope' => array('User.is_valid' => 1)
+                    'scope' => array('User.is_valid' => 2)
                 )
             )
         ),

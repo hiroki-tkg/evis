@@ -60,18 +60,20 @@
                             array('escape' => false));
                         ?>
                     </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a class="nav-link" href="/albums">アルバム</a></li>
-                            <li class="user_popup"><a class="nav-link user_name"><?php echo $user['username']; ?></a></li>
-                            <li>
-                                <ul class="nav_sub">
-                                    <a href="/users/page/<?php echo $user['id']; ?>"><li>Mypage</li></a>
-                                    <a href="/users/logout"><li>Logout</li></a>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <?php if(!empty($user)){ ?>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="nav-link" href="/albums">アルバム</a></li>
+                                <li class="user_popup"><a class="nav-link user_name"><?php echo $user['username']; ?></a></li>
+                                <li>
+                                    <ul class="nav_sub">
+                                        <a href="/users/page/<?php echo $user['id']; ?>"><li>Mypage</li></a>
+                                        <a href="/users/logout"><li>Logout</li></a>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    <?php } ?>
                 </div>
             </nav>
 

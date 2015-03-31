@@ -391,3 +391,14 @@ a{
 .anonymous_name{
     color: #000;
 }
+
+
+/*　ログイン時　*/
+.login_page #flashMessage{
+    padding: 25px!important;
+}
+
+.register_submit{
+    color:#434a54!important;
+    float: left!important;
+}

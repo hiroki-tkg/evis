@@ -10,6 +10,7 @@ text-shadow: 2px 2px 2px rgba(255,255,255,1);">管理者専用ページ</h2>
 拒否しても、この管理画面には残るので、後で承認する事も出来るよ
 </p>
 
+
 	<div class="panel panel-warning" style="margin-top:40px;">
 		<div class="panel-heading">承認待ちユーザー</div>
 		<table class="table">
@@ -18,7 +19,7 @@ text-shadow: 2px 2px 2px rgba(255,255,255,1);">管理者専用ページ</h2>
 				<th>番号</th>
 				<th>名前</th>
 				<th>性別</th>
-				<th>Facebook</th>
+				<!-- <th>Facebook</th> -->
 				<th>登録日</th>
 				<th>承認</th>
 				</tr>
@@ -26,15 +27,15 @@ text-shadow: 2px 2px 2px rgba(255,255,255,1);">管理者専用ページ</h2>
 			<tbody>
 				<?php 
 				$i = 1;
-				foreach ($Users as $user) { ?>
+				foreach ($Activated as $user) { ?>
 				
 				<tr>
 					<td><?php echo $i; ?></td>
 					<td><?php echo $user['User']['username']; ?></td>
 					<td><?php echo $user['User']['gender']; ?></td>
-					<td><?php echo $user['User']['facebook_id']; ?></td>
+					<!-- <td><?php echo $user['User']['facebook_id']; ?></td> -->
 					<td><?php echo $user['User']['created']; ?></td>
-					<td><a href="/admins/update?is_valid=1">承認</a>  <a href="/admins/update?is_valid=3">拒否</a></td>
+					<td><a href="/admins/update?is_valid=2&id=<?php echo $user['User']['id']; ?>">承認</a>  <a href="/admins/update?is_valid=9&id=<?php echo $user['User']['id']; ?>">拒否</a></td>
 				</tr>
 				
 				<?php $i = $i+1; } ?>
@@ -43,6 +44,42 @@ text-shadow: 2px 2px 2px rgba(255,255,255,1);">管理者専用ページ</h2>
 		</table>
 	</div>
 	
+	<div class="panel panel-success" style="margin-top:40px;">
+		<div class="panel-heading">アクティベート待ちユーザー</div>
+		<table class="table">
+			<thead>
+				<tr>
+				<th>番号</th>
+				<th>名前</th>
+				<th>性別</th>
+				<!-- <th>Facebook</th> -->
+				<th>登録日</th>
+				<th>拒否</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+				$i = 1;
+				foreach ($Registered as $user) { ?>
+				
+				<tr>
+					<td><?php echo $i; ?></td>
+					<td><?php echo $user['User']['username']; ?></td>
+					<td><?php echo $user['User']['gender']; ?></td>
+					<!-- <td><?php echo $user['User']['facebook_id']; ?></td> -->
+					<td><?php echo $user['User']['created']; ?></td>
+					<td>
+						<!-- <a href="/admins/update?is_valid=2&id=<?php echo $user['User']['id']; ?>">承認</a>   -->
+						<a href="/admins/update?is_valid=9&id=<?php echo $user['User']['id']; ?>">拒否</a>
+					</td>
+				</tr>
+				
+				<?php $i = $i+1; } ?>
+
+			</tbody>
+		</table>
+	</div>
+
 	<div class="panel panel-danger" style="margin-top:40px;">
 		<div class="panel-heading">拒否したユーザー</div>
 		<table class="table">
@@ -51,7 +88,7 @@ text-shadow: 2px 2px 2px rgba(255,255,255,1);">管理者専用ページ</h2>
 				<th>番号</th>
 				<th>名前</th>
 				<th>性別</th>
-				<th>Facebook</th>
+				<!-- <th>Facebook</th> -->
 				<th>登録日</th>
 				<th>承認</th>
 				</tr>
@@ -59,15 +96,18 @@ text-shadow: 2px 2px 2px rgba(255,255,255,1);">管理者専用ページ</h2>
 			<tbody>
 				<?php 
 				$i = 1;
-				foreach ($Declines as $user) { ?>
+				foreach ($Declined as $user) { ?>
 				
 				<tr>
 					<td><?php echo $i; ?></td>
 					<td><?php echo $user['User']['username']; ?></td>
 					<td><?php echo $user['User']['gender']; ?></td>
-					<td><?php echo $user['User']['facebook_id']; ?></td>
+					<!-- <td><?php echo $user['User']['facebook_id']; ?></td> -->
 					<td><?php echo $user['User']['created']; ?></td>
-					<td><a href="/admins/update?is_valid=1">承認</a>  <a href="/admins/update?is_valid=4">削除</a></td>
+					<td>
+						<a href="/admins/update?is_valid=1&id=<?php echo $user['User']['id']; ?>">承認</a>  
+						<a href="/admins/update?is_valid=9&id=<?php echo $user['User']['id']; ?>">削除</a>
+					</td>
 				</tr>
 				
 				<?php $i = $i+1; } ?>

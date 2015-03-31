@@ -11,7 +11,7 @@ class UsersController extends AppController{
 	public $components = array('Email');
 
 	public function beforeFilter(){
-		$this->Auth->allow(array('signup', 'thanks'));
+		$this->Auth->allow(array('signup', 'thanks', 'activate'));
 	}
 
 	// public function register(){
@@ -55,23 +55,29 @@ class UsersController extends AppController{
 				return $this->redirect(array('controller' => 'posts', 'action' => 'index'));
 			} else {
 		        // Userのis_validを取得
-		        echo "失敗しました";
-		        $user_status = $this->User->field( 'is_valid', array( 'email' => $this->data['User']['email']));
-		        $user_status = "e";
+		        // $email = $this->data['User']['email'];
+		        $is_valid = $this->User->field( 'is_valid', array( 'email' => $this->data['User']['email']));
+		        // $is_valid = $this->User->find('first', array(
+		        // 	'conditions' => array(
+		        // 		'email' => $email)
+		        // 	)
+		        // );
 
-		        if(empty($user_status)){
+		        if(empty($is_valid)){
 		        
-		            $this->Session->setFlash('このメールアドレスは登録されてません。');		        	
+		            $this->Session->setFlash('このメールアドレスは登録されてません。','default', array('class'=> 'alert alert-danger'));		        	
 
 		        }else{
 			    // 0 : 未アクティベート
 		        // 1 : 管理者承認待ち
 		        // 2 : 管理者承認済み
 
-			        if ($user_status == 0){
-			            $this->Session->setFlash( 'アカウントをアクティベートして下さい。');
-			        } else {
-			            $this->Session->setFlash( 'ユーザ名もしくはパスワードが違います');
+			        if ($is_valid == 0){
+			            $this->Session->setFlash( 'アカウントをアクティベートして下さい。','default', array('class'=> 'alert alert-danger'));
+			        } elseif($is_valid == 1) {
+			            $this->Session->setFlash( '管理者の承認待ちです','default', array('class'=> 'alert alert-danger'));
+			        } elseif($is_valid == 2) {
+			            $this->Session->setFlash( 'ユーザ名もしくはパスワードが違います','default', array('class'=> 'alert alert-danger'));
 			        }
 			    }
 		    }
@@ -79,7 +85,7 @@ class UsersController extends AppController{
 	}
 
 	public function signup(){
-		$this->layout = false;
+		$this->layout = 'index';
 		if(!empty($this->data)){
 			$user_info = $this->data;
 			$email = $user_info['User']['email'];
@@ -110,9 +116,11 @@ class UsersController extends AppController{
 	            $title = "【Evitter】 会員登録でかい！！";
 				$msg = 
 					"Evitterにようこそ!\r\r".
-					"Evitterはひろきが作る作る言って途中までやっては飽きて放棄し、また唐突として作業を再開というのを
-					繰り返して、ようやくローンチまでこぎ着けたサービスです。これから改善していくので、使ってみてね。
-					以下のリンクを押して、アカウントをアクティベートして下さい。\r".
+					"Evitterはひろきが作る作る言って途中までやっては飽きて放棄し、".
+					"また唐突として作業を再開というのを繰り返して、".
+					"ようやくローンチまでこぎ着けたサービスです。".
+					"これから改善していくので、使ってみてね。\r".
+					"以下のリンクを押して、アカウントをアクティベートして下さい。\r\r\r".
 					$url .
 					"\r\r@hiroki_tkg";
 				$email = new CakeEmail('gmail');
@@ -319,12 +327,30 @@ class UsersController extends AppController{
 	}
 
 	public function thanks(){
+		$this->layout = 'index';
 		// sessionメッセージ表示してリダイレクトするだけ。できれば時限にしたい
 	}
 
-	public function activate(){
-		// メールに乗せたアクティベートリンクを踏んだらここに来る。paramsでユーザーのis_valid絡むをupdate
+	// public function activate(){
+	// 	// メールに乗せたアクティベートリンクを踏んだらここに来る。paramsでユーザーのis_valid絡むをupdate
+	// }
+
+
+	public function activate( $user_id = null, $in_hash = null) {
+		$this->layout = 'index';
+    // UserモデルにIDをセット
+	    $this->User->id = $user_id;
+	    if ($this->User->exists() && $in_hash == $this->User->getActivationHash()) {
+	    // 本登録に有効なURL
+	        // is_validフィールドを1に更新
+	        $this->User->saveField( 'is_valid', 1);
+	        $this->Session->setFlash('あなたのアカウントはアクティベートされました。.', 'default', array('class'=> 'alert alert-success'));
+	    }else{
+	    // 本登録に無効なURL
+	        $this->Session->setFlash('不正なURLです。頼むわ！！.', 'default', array('class'=> 'alert alert-danger'));
+	    }
 	}
+
 
 	public function logout(){
 		if($this->Auth->logout()){

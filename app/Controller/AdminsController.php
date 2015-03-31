@@ -7,7 +7,7 @@ class AdminsController extends AppController{
 	public $name = 'Admin';
 	public $uses = array('Post', 'User', 'Comment', 'Favorite', 'Album');
 	public $layout = 'index';	
-	public $components = array('Session');
+	public $components = array('Session', 'Email');
  	public $helpers = array( 'Js');
 
 	public function beforeFilter(){
@@ -26,48 +26,89 @@ class AdminsController extends AppController{
 
 		$user = $this->Auth->user();
 		$this->set('user', $user);
-		$all = $this->User->find('all', array(
-			'conditions' => array(
-				'User.is_valid' => 0 
-				)
-		));
+		// $all = $this->User->find('all', array(
+		// 	'conditions' => array(
+		// 		'User.is_valid' => 0 
+		// 		)
+		// ));
 
 		$this->paginate = array(
 			'conditions' => array(
-				'User.is_valid' => 0,
+				'User.is_valid' => 0
+			),
+			'order' => array('User.created' => 'DESC'),
+			'limit' => 20
+		);
+
+		$this->set('Registered', $this->paginate('User'));
+
+
+		$this->paginate = array(
+			'conditions' => array(
+				'User.is_valid' => 1,
 				// 'Post.is_anonymous' => 0
 			),
 			'order' => array('User.created' => 'DESC'),
 			'limit' => 20
 		);
 
-		$this->set('Users', $this->paginate('User'));
+		$this->set('Activated', $this->paginate('User'));
 
 		$this->paginate = array(
 			'conditions' => array(
-				'User.is_valid' => 2,
+				'User.is_valid' => 9,
 			),
 			'order' => array('User.created' => 'DESC'),
 			'limit' => 20
 		);
 
-		$this->set('Declines', $this->paginate('User'));
+		$this->set('Declined', $this->paginate('User'));
 
 	}
 
 	public function update(){
 		// $this->autoRender = false;
-		$is_valid = $this->params['url']['is_valid'];
-
 		$user = $this->Auth->user();
+
+		$is_valid = $this->params['url']['is_valid'];
+		$id = $this->params['url']['id'];
+
 		$data = array(
-			'id' => $user['id'],
+			'id' => $id,
 			'is_valid' => $is_valid,
 		);
 
 		$this->User->id = $this->User->save($data);
-		$this->User->saveField('is_valid', $is_valid);
-		$this->redirect(array('action' => 'index'));
+		if($this->User->saveField('is_valid', $is_valid)){
+
+			if($is_valid == 2){
+
+				$user = $this->User->find('first', array(
+					'conditions' => array(
+						'User.id' => $id
+					))
+				);
+
+				// メール送信
+	            $url = FULL_BASE_URL;
+	            $email_address = $user['User']['email'];
+	            $title = "【Evitter】アカウントが有効になりました。";
+				$msg = 
+					"管理者の許可が出ました！でかいですね。\r".
+					"早速Evitterにログインして、わちゃわちゃしましょう\r\r".
+					$url.
+					"\r\rEvitter Team";
+				$email = new CakeEmail('gmail');
+				$email -> to($email_address)
+					->emailFormat('text')
+					->subject($title)
+					->send($msg);
+
+			}
+
+		    $this->Session->setFlash('更新しました！', 'default', array('class'=> 'alert alert-success'));
+			$this->redirect(array('action' => 'index'));
+		}
 
 	}
 
