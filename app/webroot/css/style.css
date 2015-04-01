@@ -233,7 +233,10 @@ a{
   /*border: 1px solid #999;*/
   /*background-color: #A0D468;*/
   color: rgb(59, 148, 217);
-  color: #fff;
+}
+
+.file_frame .glyphicon{
+    color: rgb(59, 148, 217);
 }
 
 .file_frame input[type="file"] {
@@ -245,6 +248,12 @@ a{
   margin: 0;
   font-size: 100px;
   cursor: pointer;
+}
+
+.profile_img_edit .glyphicon,
+.profile_img_edit .file_frame
+{
+    color: #fff;
 }
 
 /* Album ページ */
