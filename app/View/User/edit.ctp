@@ -3,9 +3,15 @@
 <div class="col-sm-3 col-md-3">
     <div class="thumbnail">
     	<div class="edit_profile"></div>
-        <?php 
-        echo $this->Html->image('test_profile.jpg', array('alt' => '', 'border' => '0', 'class' => ""));
-        ?>
+     
+		    <?php
+		        if(empty($user['profile_img'])){
+			        echo $this->Html->image('default_icon.png', array('alt' => '', 'border' => '0'));
+		    	}else{
+		        ?>
+		        <img src="/files/user/profile_img/<?php echo $user['id']; ?>/<?php echo $user['profile_img']; ?>">
+	        <?php } ?>
+
         <div class='preview clearfix'>
 			<img src="" id="preview" style="display:none;">
 		</div>
@@ -20,8 +26,8 @@
 			        
 		</div>
         <div class="caption">
-            <h3>Hiroki Takagi</h3>
-            <div><a href="/users/edit">編集</a></div>
+            <h3><?php echo $user['username']; ?></h3>
+            <!-- <div><a href="/users/edit">編集</a></div> -->
         </div>
     </div>
 
@@ -45,7 +51,16 @@
 	<div id="comment_launch_<?php echo $post['Post']['id']; ?>" class="">
 		<div class="tweet">
 			<div class="tweet_header">
-			<?php echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon')); ?>
+
+				<?php
+			        if(empty($user['profile_img'])){
+				        echo $this->Html->image('default_icon.png', array('alt' => '', 'border' => '0', 'class' => 'tweet_icon'));
+			    	}else{
+			        ?>
+			        <img class="tweet_icon" src="/files/user/profile_img/<?php echo $user['id']; ?>/<?php echo $user['profile_img']; ?>">
+		        <?php } ?>
+
+			<?php //echo $this->Html->image('default_icon.png', array('class' => 'tweet_icon')); ?>
 
 				<?php echo "<span class='tweet_name'><a href='posts/users/page/" . $post['User']['id'] ."'>" . $post['User']['username'] . "</a></span>"; ?>
 				<?php echo "<span class='tweet_created'>".$post['Post']['created'] . "</span>"; ?>

@@ -153,6 +153,7 @@ a{
     top: 10px;
     left: 25px;
     color: #000;
+    background: rgba(0, 0, 0, 0.4);
 }
 .edit_profile{
     background: rgba(0, 0, 0, 0.5);
@@ -180,6 +181,7 @@ a{
 .file_frame span{
     margin-right: 5px;
     color: rgb(59, 148, 217);
+    color: #fff;
 }
 
 @media screen and (max-width: 768px) {
@@ -231,6 +233,7 @@ a{
   /*border: 1px solid #999;*/
   /*background-color: #A0D468;*/
   color: rgb(59, 148, 217);
+  color: #fff;
 }
 
 .file_frame input[type="file"] {
