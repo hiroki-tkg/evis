@@ -8,7 +8,8 @@
 							<dt class="nav-title">ABOUT</dt>
 							<dd class="nav-item"><a href="#">About Evitter</a></dd>
 							<dd class="nav-item"><a href="#">Vision</a></dd>
-							<dd class="nav-item"><a href="#">Admin</a></dd>
+							<dd class="nav-item"><a href="/admins">Admin</a></dd>
+							<dd class="nav-item"><a href="/pages/log">Update Log</a></dd>
 						</dl>
 						<dl class="footer-nav">
 							<dt class="nav-title">CONTENTS</dt>

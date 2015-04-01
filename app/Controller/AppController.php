@@ -35,6 +35,7 @@ class AppController extends Controller {
 
     public $helpers = array('Form', 'Html');
     public $uses = array('User');
+    public $layout = 'index';
 
     public $components = array(
 
@@ -57,11 +58,11 @@ class AppController extends Controller {
     
     public function beforeFilter(){
         // $this->Auth->allow(array('controller' => 'pages', 'action' => 'display'));
-        $this->Facebook = new Facebook(array(
-            'appId' => '1427098287515013',
-            'secret' => 'f37abbc72c1006d6e3fcd29b61080a98',
-            'cookie' => true,
-        ));
+        // $this->Facebook = new Facebook(array(
+        //     'appId' => '1427098287515013',
+        //     'secret' => 'f37abbc72c1006d6e3fcd29b61080a98',
+        //     'cookie' => true,
+        // ));
     }
 
 }
