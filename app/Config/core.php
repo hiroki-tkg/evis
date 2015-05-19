@@ -221,10 +221,10 @@
 	
 	Configure::write('Session', array(
 	    'defaults' => 'php',
-	    'timeout'  => 10080,  // 一週間
+	    'timeout'  => 259200,  // 6ヶ月
 	    'autoRegenerate' => true,
 	    'ini' => array(
-			'session.gc_maxlifetime' => 604800,  // 一週間
+			'session.gc_maxlifetime' => 15552000,  // 一週間
 		) 
 	));
 
