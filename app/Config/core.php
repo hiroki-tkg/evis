@@ -227,6 +227,8 @@
 			'session.gc_maxlifetime' => 604800,  // 一週間
 		) 
 	));
+
+	Configure::write('Session.checkAgent', false);
 /**
  * A random string used in security hashing methods.
  */
